@@ -58,7 +58,7 @@ def exit_on_error(message: str):
 def confirm_prompt(question: str) -> bool:
     reply = None
     while reply not in ("y", "n"):
-        reply = input(f"{question} (y/n): ").casefold()
+        reply = input(f"{question} (Y/N): ").casefold()
     return (reply == "y")
 
 def hex_to_rgb(hexa):
@@ -68,6 +68,43 @@ def hex_to_rgb(hexa):
 # Just a small function to write the ini file
 def write_file():
 	config.write(open(iniFname, 'w', encoding='utf-8'))
+
+flatred         = '#d02b3b','#ba181b' #1
+flatorange      = '#f59a2f','#fd7c0f' #2
+flatyellow      = '#f5c211','#e5a50a' #3
+flatsand        = '#f0dfb4','#d5c395' #4
+flatnavyblue    = '#44475a','#282a36' #5
+flatblack       = '#2d2d2d','#262626' #6
+flatmagenta     = '#9a59b5','#8c43ac' #7
+flatteal        = '#607d8b','#4d646f' #8
+flatskyblue     = '#3584e4','#1a5fb4' #9
+flatgreen       = '#2dcc70','#27ae61' #10
+flatmint        = '#1bbc9b','#16a086' #11
+flatwhite       = '#9a9996','#5e5c64' #12
+flatgray        = '#95a5a5','#7e8c8d' #13
+flatforestgreen = '#345f41','#2e5037' #14
+flatpurple      = '#745dc5','#5b48a2' #15
+flatbrown       = '#986a44','#63452c' #16
+flatplum        = '#5e335e','#4f2b4f' #17
+flatwatermelon  = '#ef727a','#d95459' #18
+flatlime        = '#a2c95d','#7ebd61' #19
+flatpink        = '#f47cc3','#d45b9e' #20
+flatmaroon      = '#79302a','#662722' #21
+flatcoffee      = '#a28671','#8e725d' #22
+flatpowderblue  = '#b7c9f1','#99aad5' #23
+flatblue        = '#5165a2','#384c81' #24
+
+colors_matrix = [[flatred,flatorange,flatyellow,flatsand],
+				 [flatnavyblue,flatblack,flatmagenta,flatteal],
+				 [flatskyblue,flatgreen,flatmint,flatwhite],
+				 [flatgray,flatforestgreen,flatpurple,flatbrown],
+				 [flatplum,flatwatermelon,flatlime,flatpink],
+				 [flatmaroon,flatcoffee,flatpowderblue,flatblue]]
+				
+colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
+               flatmagenta,flatteal,flatskyblue,flatgreen,flatmint,flatwhite,
+               flatgray,flatforestgreen,flatpurple,flatbrown,flatplum,flatwatermelon,
+               flatlime,flatpink,flatmaroon,flatcoffee,flatpowderblue,flatblue]
 
 # clean screen and welcome message
 os.system('clear')
@@ -100,45 +137,8 @@ B2 = str(rgb2[2])
 
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}❯❯ Change accent color for gnome shell and gtk.css version 46.x{colors.reset}")
 print ('')
-print ('❯❯ Current color schema   : \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm      \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm      ' + '\033[0m')
+print ('❯❯ Current color schema: \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_lighter_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_darker_color + ' \033[0m')
 print ('')
-
-flatred         = '#e5383b','#ba181b' #1
-flatorange      = '#e2711d','#cc5803' #2
-flatyellow      = '#ffcd02','#ffa800' #3
-flatsand        = '#f0dfb4','#d5c395' #4
-flatnavyblue    = '#44475a','#282a36' #5
-flatblack       = '#2d2d2d','#262626' #6
-flatmagenta     = '#ce4993','#6a0d83' #7
-flatteal        = '#607d8b','#4d646f' #8
-flatskyblue     = '#3584e4','#478fe6' #9  default gnome accent color
-flatgreen       = '#2dcc70','#27ae61' #10
-flatmint        = '#1bbc9b','#16a086' #11
-flatwhite       = '#ecf0f1','#bec3c7' #12
-flatgray        = '#95a5a5','#7e8c8d' #13
-flatforestgreen = '#9fc162','#396c2f' #14
-flatpurple      = '#745dc5','#5b48a2' #15
-flatbrown       = '#986a44','#63452c' #16
-flatplum        = '#5e335e','#4f2b4f' #17
-flatwatermelon  = '#ef727a','#d95459' #18
-flatlime        = '#a5c63b','#8fb021' #19
-flatpink        = '#f47cc3','#d45b9e' #20
-flatmaroon      = '#79302a','#662722' #21
-flatcoffee      = '#a28671','#8e725d' #22
-flatpowderblue  = '#778da9','#415a77' #23
-flatblue        = '#5165a2','#384c81' #24
-
-colors_matrix = [[flatred,flatorange,flatyellow,flatsand],
-				 [flatnavyblue,flatblack,flatmagenta,flatteal],
-				 [flatskyblue,flatgreen,flatmint,flatwhite],
-				 [flatgray,flatforestgreen,flatpurple,flatbrown],
-				 [flatplum,flatwatermelon,flatlime,flatpink],
-				 [flatmaroon,flatcoffee,flatpowderblue,flatblue]]
-				
-colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
-               flatmagenta,flatteal,flatskyblue,flatgreen,flatmint,flatwhite,
-               flatgray,flatforestgreen,flatpurple,flatbrown,flatplum,flatwatermelon,
-               flatlime,flatpink,flatmaroon,flatcoffee,flatpowderblue,flatblue]
 
 def print_matrix_with_indices(matrix):
     index = 1
@@ -155,7 +155,7 @@ def print_matrix_with_indices(matrix):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {index:>2}"') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm      \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm      \033[0m', end=' ')
+            print (f" {colors.bold}{index:>2}"') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + matrix[i][j][0] + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + matrix[i][j][1] + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print()
@@ -168,7 +168,7 @@ x = ''
 n = 24
 
 while not (x.isdigit() and int(x) in range(1, n + 1)):
-    x = input(f'❯❯ Choose a new color schema (1 to {n}): ')
+    x = input(f'❯❯ New color schema? (1 to {n}): ')
 
 replace_lighter_color = (colors_list[int(x)-1])[0]
 replace_darker_color  = (colors_list[int(x)-1])[1]
