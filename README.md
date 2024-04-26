@@ -1,10 +1,19 @@
--Use a true-color gnome terminal (console, gnome-terminal and so on...)
+# MyAdwaita-Colors
+
+Python bash script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes ( gnome v46 only )
+
+**Prerequisite:**
+
+ - use a true-color gnome terminal (console, gnome-terminal
+ - install ADW-GTK3 theme  https://github.com/lassekongo83/adw-gtk3 script apply new colors on 
+ - the fly using dbus-send command (gnome v46  tested) use  this 
+   extensions to temporary set gs in unsafe mode while using this script
+	 https://github.com/linushdot/unsafe-mode-menu
+
 - Only gnome-shell dark-theme. Sorry!
 
-install and use ADW-GTK3 theme :  https://github.com/lassekongo83/adw-gtk3
-
+**How to use it:** 
 1) git clone MosLight themes : # git clone https://github.com/dasnoopy/MyAdwaita-Colors
-
 2) create (if not exist) folder /home/user/.themes and copy MyAdwaita-Colors folder into it
 3) copy default files into the just created folder : MyAdwaita-Colors is a modded version og vanilla gnome-shell theme
 4) move gtk.css file in /home/user/.config/gtk-4.0/ (or copy the content if already exist and in use)
@@ -15,15 +24,11 @@ install and use ADW-GTK3 theme :  https://github.com/lassekongo83/adw-gtk3
 8) choose a color schema between 24
 9) Enjoy Gnome!
 
-# apply new colors on the fly using dbus-send command (gnome v46  tested)
-# gnome shell session must be in unsafe mode
-# use  this extensions to temporary set gs in unsafe mode while using this script
-#
-# https://github.com/linushdot/unsafe-mode-menu
-#
-# https://github.com/tuberry/color-picker (gnome-extension to pick color)
+**Other useful extension related to colors:**
+- https://github.com/tuberry/color-picker (gnome-extension to pick color)
+
+ **TODO:**
+ read color combination from external conf file : only read (add/remove can be done manually
 
 
-# todo :
-# read color combination from external conf file : only read (add/remove can be done manually
 
