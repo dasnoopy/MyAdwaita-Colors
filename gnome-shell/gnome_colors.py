@@ -91,16 +91,9 @@ flatlime        = '#a2c95d','#7ebd61' #19
 flatpink        = '#f47cc3','#d45b9e' #20
 flatmaroon      = '#79302a','#662722' #21
 flatcoffee      = '#a28671','#8e725d' #22
-flatpowderblue  = '#b7c9f1','#99aad5' #23
+flatpowderblue  = '#778da9','#415a77' #23
 flatblue        = '#5165a2','#384c81' #24
 
-colors_matrix = [[flatred,flatorange,flatyellow,flatsand],
-				 [flatnavyblue,flatblack,flatmagenta,flatteal],
-				 [flatskyblue,flatgreen,flatmint,flatwhite],
-				 [flatgray,flatforestgreen,flatpurple,flatbrown],
-				 [flatplum,flatwatermelon,flatlime,flatpink],
-				 [flatmaroon,flatcoffee,flatpowderblue,flatblue]]
-				
 colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
                flatmagenta,flatteal,flatskyblue,flatgreen,flatmint,flatwhite,
                flatgray,flatforestgreen,flatpurple,flatbrown,flatplum,flatwatermelon,
@@ -140,32 +133,32 @@ print ('')
 print ('❯❯ Current color schema: \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_lighter_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_darker_color + ' \033[0m')
 print ('')
 
-def print_matrix_with_indices(matrix):
-    index = 1
+def print_matrix_with_indices(list):
+    index=0
     # Loop over each row
-    for i in range(len(matrix)):
+    for i in range(6):
         # Loop over each column in the current row
-        for j in range(len(matrix[i])):
+        for j in range(4):
             # Print element at row i, column j
-            rgb1 = hex_to_rgb(matrix[i][j][0])
-            rgb2 = hex_to_rgb(matrix[i][j][1])
+            rgb1 = hex_to_rgb(list[index][0])
+            rgb2 = hex_to_rgb(list[index][1])
             R1 = str(rgb1[0])
             G1 = str(rgb1[1])
             B1 = str(rgb1[2])
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {colors.bold}{index:>2}"') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + matrix[i][j][0] + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + matrix[i][j][1] + ' \033[0m', end=' ')
+            print (f" {colors.bold}{index + 1:>2}"') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print()
 
 # Test the function with our matrix
-print_matrix_with_indices(colors_matrix)
+print_matrix_with_indices(colors_list)
 print('')
 
 x = ''
-n = 24
+n = len(colors_list)
 
 while not (x.isdigit() and int(x) in range(1, n + 1)):
     x = input(f'❯❯ New color schema? (1 to {n}): ')
