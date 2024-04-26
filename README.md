@@ -1,12 +1,14 @@
 # MyAdwaita-Colors
 
 Python bash script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes ( gnome v46 only )
+- script find and replace colors in gnome-shell.css e gtk.css file
 
 **Prerequisite:**
- - gnome-shell.css file is a modded version og vanilla gnome-shell theme
- - use a true-color gnome terminal (console, gnome-terminal
- - install ADW-GTK3 theme  https://github.com/lassekongo83/adw-gtk3 script apply new colors on 
- - the script use dbus-send command to put gnome v46 in a temporary unsafe-mode and change on-the-fly the shell if this extensions is installed and active:
+ - gnome-shell.css file is a modded version of vanilla gnome-shell theme
+ - use a true-color gnome terminal (console, gnome-terminal) for best experience.
+ - install ADW-GTK3 theme  https://github.com/lassekongo83/adw-gtk3
+ - the script use dbus-send command to put gnome v46 if gnome is in a unsafe-mode and change on-the-fly the shell theme.
+   unsafe-mode can be achivied temporary if this extensions is installed and active:
 	 https://github.com/linushdot/unsafe-mode-menu
 - Only gnome-shell dark-theme. Sorry!
 
@@ -26,7 +28,7 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 - https://github.com/tuberry/color-picker (gnome-extension to pick color)
 
  **TODO:**
-- read color combination from external conf file : only read (add/remove can be done manually
+- read color combination from external conf file : only read (add/remove can be done manually)
 
 
 
