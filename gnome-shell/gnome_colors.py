@@ -73,6 +73,7 @@ def write_file():
 os.system('clear')
 # define some variables
 iniFname = 'colors.ini'
+cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/gtk.css"
 config = configparser.ConfigParser()
 
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
@@ -184,8 +185,6 @@ elif replace_lighter_color == replace_darker_color:
 elif replace_lighter_color == search_lighter_color and replace_darker_color == search_darker_color:
 	exit_on_error('❯❯ Nothing to change : current and new color schema are equal!')
 
-
-
 # get shadow-box rgba color from ligher color
 replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_lighter_color)).rstrip(')') +','
 
@@ -208,7 +207,7 @@ with open(r'gnome-shell.css', 'r', encoding='utf-8') as file:
 with open(r'gnome-shell.css', 'w', encoding='utf-8') as file:
 	file.write(data)
 
-#update also asset/svgs
+#update also svg accent color (toggle-on.savg must be exist)
 svg="toggle-on.svg"
 
 with open(svg, 'r', encoding='utf-8') as file:
@@ -216,15 +215,23 @@ with open(svg, 'r', encoding='utf-8') as file:
 	data = data.replace(search_lighter_color, replace_lighter_color)
 with open(svg, 'w', encoding='utf-8') as file:
 	file.write(data)
-	
-#update also /home/user/.config/gtk-4.0/gtk.css
-css="/home/andrea/.config/gtk-4.0/gtk.css"
 
-with open(css, 'r', encoding='utf-8') as file:
+# if gtk.css file is missing, create and populated it...
+if not os.path.exists(cssFname):
+	# Open the file in append mode
+	with open(cssFname, 'a', encoding='utf-8') as file:
+	# Append content to the file
+		file.write('/* accent color */')
+		file.write('\n @define-color accent_color ' + replace_lighter_color + ';')
+		file.write('\n @define-color accent_bg_color ' + replace_darker_color + ';')
+
+# otherwise search and replace colors,  always in gtk.css
+# be sure that two lines @define-color must be exists
+with open(cssFname, 'r', encoding='utf-8') as file:
 	data = file.read()
 	data = data.replace(search_lighter_color, replace_lighter_color)
 	data = data.replace(search_darker_color, replace_darker_color)
-with open(css, 'w', encoding='utf-8') as file:
+with open(cssFname, 'w', encoding='utf-8') as file:
 	file.write(data)
 	
 
