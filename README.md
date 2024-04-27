@@ -14,7 +14,7 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 **Basic notes:**
 - use a true-color gnome terminal (gnome-console, gnome-terminal) for best experience.
 - script searches for and replaces colors in gnome-shell.css e gtk.css file
-- if missing, script create gtk.css file in folder /home/users/.config/gtk-4.0 with following lines to set default gnome accent colors
+- if missing, script create `gtk.css` file in folder `/home/users/.config/gtk-4.0` with following lines to set default gnome accent colors
   -   `@define-color accent_color #3584e4`
   -   `@define-color accent_bg_color #478fe6`
 - if gtk.css already exist with some customisation, insert these lines in the file, before start using this script 
