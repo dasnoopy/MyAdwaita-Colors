@@ -8,14 +8,13 @@
 - The python script may not work properly on your system! (tested on archlinux system with gnome46.1)
 
 **Requirements:**
-- python 3.1x
-- install ADW-GTK3 theme https://github.com/lassekongo83/adw-gtk3 for a better gtk3/4 theme ;-)
-- install gnome-tweaks utility to change gnome-shell theme
-- install and activate gnome-shell users-theme extensions (should be part of default gnome installation)
+- python **3.1x**
+- **ADW-GTK3** theme https://github.com/lassekongo83/adw-gtk3 for a better gtk3/4 theme ;-)
+- **gnome-tweaks** utility to change gnome-shell theme
+- **users-theme extensions** for gnome (should be part of default gnome installation)
 
 **Basic notes:**
 - use a true-color gnome terminal (gnome-console, gnome-terminal) for best experience.
-- script searches for and replaces colors in gnome-shell.css e gtk.css file
 - if missing, script create `gtk.css` file in folder `/home/users/.config/gtk-4.0` with following lines to set default gnome accent colors
   -   `@define-color accent_color #3584e4`
   -   `@define-color accent_bg_color #478fe6`
