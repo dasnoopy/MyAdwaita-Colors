@@ -31,9 +31,9 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 
 **How to use it:** 
 1) git clone MyAdwaita-Colors repo:	`# git clone https://github.com/dasnoopy/MyAdwaita-Colors`
-2) create (if not exist) folder /home/user/.local/share/themes and copy MyAdwaita-Colors folder into it
+2) create (if not exist) folder `/home/user/.local/share/themes` and copy MyAdwaita-Colors folder into it
 3) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
-4) run the `gnome_colors.py` script from folder /home/user/.local/share/themes/MyAdwaita-Colors
+4) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src`
 5) choose a color schema between 24 preset 
 6) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
 7) Enjoy new colors!
