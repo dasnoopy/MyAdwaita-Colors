@@ -159,7 +159,7 @@ stage {
   .keyboard-brightness-level .button:hover:checked, .quick-menu-toggle .quick-toggle-arrow:hover:checked, .quick-toggle:hover:checked, .calendar .calendar-day.calendar-today:hover, .icon-button.default:hover, .default.login-dialog-button.cancel-button:hover, .default.login-dialog-button.switch-user-button:hover, .default.login-dialog-button.login-dialog-session-list-button:hover, .default.screenshot-ui-show-pointer-button:hover, .message .message-header .default.message-expand-button:hover,
   .message .message-header .default.message-close-button:hover, .calendar .calendar-month-header .default.pager-button:hover, .button.default:hover {
     color: #ffffff;
-    background-color: #478fe6; }
+    background-color: #1a5fb4; }
   .keyboard-brightness-level .button:insensitive:checked, .quick-menu-toggle .quick-toggle-arrow:insensitive:checked, .quick-toggle:insensitive:checked, .calendar .calendar-day.calendar-today:insensitive, .icon-button.default:insensitive, .default.login-dialog-button.cancel-button:insensitive, .default.login-dialog-button.switch-user-button:insensitive, .default.login-dialog-button.login-dialog-session-list-button:insensitive, .default.screenshot-ui-show-pointer-button:insensitive, .message .message-header .default.message-expand-button:insensitive,
   .message .message-header .default.message-close-button:insensitive, .calendar .calendar-month-header .default.pager-button:insensitive, .button.default:insensitive {
     color: rgba(255, 255, 255, 0.5);
@@ -2695,7 +2695,7 @@ StScrollBar {
       background-color: #3584e4; }
   .keyboard-key.enter-key {
     color: #ffffff;
-    background-color: #478fe6;
+    background-color: #1a5fb4;
     border-radius: 10px;
     color: #ffffff; }
     .keyboard-key.enter-key:hover {
