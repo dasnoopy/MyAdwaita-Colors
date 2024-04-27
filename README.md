@@ -6,7 +6,7 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 - use a true-color gnome terminal (console, gnome-terminal) for best experience.
 - install ADW-GTK3 theme  https://github.com/lassekongo83/adw-gtk3
 - script find and replace colors in gnome-shell.css e gtk.css file
-- if missing, script create gtk.css file in folder /home/users/.config/gtk-4.0 with following lines to set gtk4 accent colors
+- if missing, script create gtk.css file in folder /home/users/.config/gtk-4.0 with following lines to set default gnome accent colors
   -   `@define-color accent_color #3584e4`
   -   `@define-color accent_bg_color #478fe6`
 - if gtk.css already exist with some customisation, insert these lines in the file, before start using this script 
@@ -22,13 +22,14 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 
 
 **How to use it:** 
-1) git clone MyAdwaita-Colors repo: # git clone https://github.com/dasnoopy/MyAdwaita-Colors
+1) git clone MyAdwaita-Colors repo: 
+	# `git clone https://github.com/dasnoopy/MyAdwaita-Colors`
 2) create (if not exist) folder /home/user/.themes and copy MyAdwaita-Colors folder into it
-3) copy default files into the just created folder 
-4) may you want to activate the unsafe-mode extension 
-5) run the gnome_colors.py script from folder /home/user/.themes/MyAdwaita-Colors
-6) choose a color schema between 24
-7) Enjoy Gnome!
+3) using gnome-tweaks choose MyAdwaita-Colors shell theme...
+4) run the `gnome_colors.py` script from folder /home/user/.themes/MyAdwaita-Colors
+5) choose a color schema between 24 preset 
+6) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
+7) Enjoy new colors!
 
 **Other useful extension related to colors:**
 - https://github.com/tuberry/color-picker (gnome-extension to pick color)
