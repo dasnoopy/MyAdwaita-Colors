@@ -91,7 +91,7 @@ flatlime        = '#7ebd61','#a2c95d' #19
 flatpink        = '#ee58a2','#ec89ba' #20 
 flatmaroon      = '#662722','#79302a' #21 
 flatcoffee      = '#8e725d','#a28671' #22 
-flatpowderblue  = '#6a84b4','#7c8fb6' #23 
+flatpowderblue  = '#5e81ac','#708cae' #23 
 flatblue        = '#384c81','#5165a2' #24 
 
 colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
@@ -120,6 +120,9 @@ search_primary_color = config['COLORS']['hexprimary']
 search_secondary_color = config['COLORS']['hexsecondary']
 search_rgba_color = config['COLORS']['rgbaprimary'] 
 
+#index of current color schema
+idx=(next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1)
+
 rgb1 = hex_to_rgb(search_primary_color)
 rgb2 = hex_to_rgb(search_secondary_color)
 
@@ -133,7 +136,7 @@ B2 = str(rgb2[2])
 
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors gnome shell theme (and gtk4 theme){colors.reset}")
 print ('')
-print ('Current color schema: '' \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+print ('Current color schema: '+ str(idx) + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 print ('')
 
 def print_matrix_with_indices(list):
