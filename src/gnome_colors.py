@@ -3,6 +3,7 @@
 # @author: Andrea Antolini (https://github.com/Dasnoopy)
 # @license: GNU General Public License v3.0
 # @link: https://github.com/dasnoopy/MyAwaita-Colors
+
 import os
 import sys
 import configparser
@@ -63,30 +64,30 @@ def hex_to_rgb(hexa):
 def write_file():
 	config.write(open(iniFname, 'w', encoding='utf-8'))
 
-flatred         = '#d02b3b','#ba181b' #1
-flatorange      = '#f59a2f','#fd7c0f' #2
-flatyellow      = '#f5c211','#e5a50a' #3
-flatsand        = '#a68c71','#c0833f' #4
-flatnavyblue    = '#4c566a','#434c5e' #5
-flatblack       = '#2f2f2f','#242424' #6
-flatmagenta     = '#9a59b5','#8c43ac' #7
-flatteal        = '#607d8b','#4d646f' #8
-flatskyblue     = '#3584e4','#1a5fb4' #9
-flatgreen       = '#2dcc70','#27ae61' #10
-flatmint        = '#1bbc9b','#16a086' #11
-flatwhite       = '#9a9996','#5e5c64' #12
-flatgray        = '#95a5a5','#7e8c8d' #13
-flatforestgreen = '#345f41','#2e5037' #14
-flatpurple      = '#8560ff','#7b50ff' #15
-flatbrown       = '#986a44','#63452c' #16
-flatplum        = '#5e335e','#4f2b4f' #17
-flatwatermelon  = '#ef727a','#d95459' #18
-flatlime        = '#a2c95d','#7ebd61' #19
-flatpink        = '#f47cc3','#d45b9e' #20
-flatmaroon      = '#79302a','#662722' #21
-flatcoffee      = '#a28671','#8e725d' #22
-flatpowderblue  = '#81a1c1','#5e81ac' #23
-flatblue        = '#5165a2','#384c81' #24
+flatred         = '#ba181b','#d02b3b' #1 
+flatorange      = '#fd7c0f','#f59a2f' #2 
+flatyellow      = '#e5a50a','#f5c211' #3 
+flatsand        = '#c0833f','#a68c71' #4 
+flatnavyblue    = '#434c5e','#4c566a' #5 
+flatblack       = '#242424','#2f2f2f' #6 
+flatmagenta     = '#9d53b5','#b172c1' #7 
+flatteal        = '#4d646f','#607d8b' #8 
+flatskyblue     = '#3584e4','#478fe6' #9 
+flatgreen       = '#27ae61','#2dcc70' #10 
+flatmint        = '#16a086','#1bbc9b' #11 
+flatwhite       = '#5e5c64','#9a9996' #12 
+flatgray        = '#7e8c8d','#95a5a5' #13 
+flatforestgreen = '#2e5037','#345f41' #14 
+flatpurple      = '#7b50ff','#8560ff' #15 
+flatbrown       = '#63452c','#986a44' #16 
+flatplum        = '#4f2b4f','#5e335e' #17 
+flatwatermelon  = '#d95459','#ef727a' #18 
+flatlime        = '#7ebd61','#a2c95d' #19 
+flatpink        = '#d45b9e','#f47cc3' #20 
+flatmaroon      = '#662722','#79302a' #21 
+flatcoffee      = '#8e725d','#a28671' #22 
+flatpowderblue  = '#6a84b4','#89b4fa' #23 
+flatblue        = '#384c81','#5165a2' #24 
 
 colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
                flatmagenta,flatteal,flatskyblue,flatgreen,flatmint,flatwhite,
@@ -105,17 +106,17 @@ config = configparser.ConfigParser()
 
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
 if not os.path.exists(iniFname):
-	config['COLORS'] = {'hexlighter': '#3584e4', 'hexdarker': '#478fe6', 'rgbalighter': 'rgba(53, 132, 228,'}
+	config['COLORS'] = {'hexprimary': '#3584e4', 'hexsecondary': '#478fe6', 'rgbaprimary': 'rgba(53, 132, 228,'}
 	write_file()
 	
 # Read ini file...
 config.read(iniFname)
-search_lighter_color = config['COLORS']['hexlighter']
-search_darker_color = config['COLORS']['hexdarker']
-search_rgba_color = config['COLORS']['rgbalighter'] 
+search_primary_color = config['COLORS']['hexprimary']
+search_secondary_color = config['COLORS']['hexsecondary']
+search_rgba_color = config['COLORS']['rgbaprimary'] 
 
-rgb1 = hex_to_rgb(search_lighter_color)
-rgb2 = hex_to_rgb(search_darker_color)
+rgb1 = hex_to_rgb(search_primary_color)
+rgb2 = hex_to_rgb(search_secondary_color)
 
 R1 = str(rgb1[0])
 G1 = str(rgb1[1])
@@ -125,9 +126,9 @@ R2 = str(rgb2[0])
 G2 = str(rgb2[1])
 B2 = str(rgb2[2])
 
-print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}Change accent color for gnome shell and gtk.css version 46.x{colors.reset}")
+print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors gnome shell theme (and gtk4 theme){colors.reset}")
 print ('')
-print ('Current color schema: '' \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_lighter_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_darker_color + ' \033[0m')
+print ('Current color schema: '' \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 print ('')
 
 def print_matrix_with_indices(list):
@@ -160,23 +161,23 @@ n = len(colors_list)
 while not (x.isdigit() and int(x) in range(1, n + 1)):
     x = input(f'Choose a color schema? (1 to {n}): ')
 
-replace_lighter_color = (colors_list[int(x)-1])[0]
-replace_darker_color  = (colors_list[int(x)-1])[1]
+replace_primary_color = (colors_list[int(x)-1])[0]
+replace_secondary_color  = (colors_list[int(x)-1])[1]
 
 # some checks
-if replace_lighter_color == '' or replace_darker_color == '':
+if replace_primary_color == '' or replace_secondary_color == '':
 	 exit_on_error ('[Info] no news colors defined: exit!')
-elif replace_lighter_color == search_darker_color:
+elif replace_primary_color == search_secondary_color:
 	exit_on_error('[Warning] unable to proceed: new lighter color is equal to current darker color!')
-elif replace_darker_color == search_lighter_color:
+elif replace_secondary_color == search_primary_color:
 	exit_on_error('[Warning] unable to proceed: new darker color is equal to current ligher color!')
-elif replace_lighter_color == replace_darker_color:
+elif replace_primary_color == replace_secondary_color:
 	exit_on_error('[Warning] unable to proceed: new lighter and darker color are the same!')
-elif replace_lighter_color == search_lighter_color and replace_darker_color == search_darker_color:
+elif replace_primary_color == search_primary_color and replace_secondary_color == search_secondary_color:
 	exit_on_error('[Info] nothing to change : current and new color schema are equal!')
 
 # get rgba color from ligher color
-replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_lighter_color)).rstrip(')') +','
+replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_primary_color)).rstrip(')') +','
 
 reply = confirm_prompt("Are you sure to proceed?")
 if reply == False:
@@ -188,8 +189,8 @@ with open(cssFname, 'r', encoding='utf-8') as file:
 	data = file.read()
 	# Searching and replacing the text
 	# using the replace() function
-	data = data.replace(search_lighter_color, replace_lighter_color)
-	data = data.replace(search_darker_color, replace_darker_color)
+	data = data.replace(search_primary_color, replace_primary_color)
+	data = data.replace(search_secondary_color, replace_secondary_color)
 	data = data.replace(search_rgba_color, replace_rgba_color)
 
 # Opening our text file in write only
@@ -200,7 +201,7 @@ with open(cssFname, 'w', encoding='utf-8') as file:
 #update also toogle-on.svg with accent color...
 with open(svgFname, 'r', encoding='utf-8') as file:
 	data = file.read()
-	data = data.replace(search_lighter_color, replace_lighter_color)
+	data = data.replace(search_primary_color, replace_primary_color)
 with open(svgFname, 'w', encoding='utf-8') as file:
 	file.write(data)
 
@@ -210,23 +211,23 @@ if not os.path.exists(gtk4Fname):
 	with open(gtk4Fname, 'a', encoding='utf-8') as file:
 	# Append content to the file
 		file.write('/* accent color */')
-		file.write('\n @define-color accent_color ' + replace_lighter_color + ';')
-		file.write('\n @define-color accent_bg_color ' + replace_darker_color + ';')
+		file.write('\n @define-color accent_color ' + replace_primary_color + ';')
+		file.write('\n @define-color accent_bg_color ' + replace_secondary_color + ';')
 
 # otherwise search and replace colors,  always in gtk.css
 # be sure that two lines @define-color must be exists
 with open(gtk4Fname, 'r', encoding='utf-8') as file:
 	data = file.read()
-	data = data.replace(search_lighter_color, replace_lighter_color)
-	data = data.replace(search_darker_color, replace_darker_color)
+	data = data.replace(search_primary_color, replace_primary_color)
+	data = data.replace(search_secondary_color, replace_secondary_color)
 with open(gtk4Fname, 'w', encoding='utf-8') as file:
 	file.write(data)
 	
 
 #write INI file with new colors
-config['COLORS']['hexlighter'] = replace_lighter_color
-config['COLORS']['hexdarker'] = replace_darker_color
-config['COLORS']['rgbalighter'] = replace_rgba_color
+config['COLORS']['hexprimary'] = replace_primary_color
+config['COLORS']['hexsecondary'] = replace_secondary_color
+config['COLORS']['rgbaprimary'] = replace_rgba_color
 write_file()
 
 # apply new colors on the fly using dbus-send command (gnome v46  tested)

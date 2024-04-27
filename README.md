@@ -41,7 +41,7 @@
 - https://github.com/tuberry/color-picker (gnome-extension to pick color)
 
  **TODO:**
-- read color combination from external conf file : only read (add/remove can be done manually)
+- read two colours combination from external conf file : only read (add/remove can be done manually)
 - better gtk.css management
   - add lines in append and only at first run and if file already exist
 
