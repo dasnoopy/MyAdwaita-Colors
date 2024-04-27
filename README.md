@@ -3,7 +3,7 @@
 Python bash script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes ( **gnome v46 only** )
 
 **Disclaimer:**
-This script is based on my distro configuration.May not work properly on your system!
+- This script may not work properly on your system!
 
 **Requirements:**
 - python 3.x 
@@ -13,7 +13,7 @@ This script is based on my distro configuration.May not work properly on your sy
 
 **Basic notes:**
 - use a true-color gnome terminal (gnome-console, gnome-terminal) for best experience.
-- script find and replace colors in gnome-shell.css e gtk.css file
+- script searches for and replaces colors in gnome-shell.css e gtk.css file
 - if missing, script create gtk.css file in folder /home/users/.config/gtk-4.0 with following lines to set default gnome accent colors
   -   `@define-color accent_color #3584e4`
   -   `@define-color accent_bg_color #478fe6`
@@ -31,9 +31,9 @@ This script is based on my distro configuration.May not work properly on your sy
 
 **How to use it:** 
 1) git clone MyAdwaita-Colors repo:	`# git clone https://github.com/dasnoopy/MyAdwaita-Colors`
-2) create (if not exist) folder /home/user/.themes and copy MyAdwaita-Colors folder into it
+2) create (if not exist) folder /home/user/.local/share/themes and copy MyAdwaita-Colors folder into it
 3) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
-4) run the `gnome_colors.py` script from folder /home/user/.themes/MyAdwaita-Colors
+4) run the `gnome_colors.py` script from folder /home/user/.local/share/themes/MyAdwaita-Colors
 5) choose a color schema between 24 preset 
 6) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
 7) Enjoy new colors!
@@ -43,7 +43,6 @@ This script is based on my distro configuration.May not work properly on your sy
 
  **TODO:**
 - read color combination from external conf file : only read (add/remove can be done manually)
-- run script out of gnome-shell folder
 - better gtk.css management
   - add lines in append and only at first run and if file already exist
 
