@@ -67,30 +67,31 @@ def write_file():
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
 # secondary color could be primary + 120B02 (hex)
+# ALL 48 colors MUST be different!
 
-flatred         = '#ba181b','#d02b3b' #1 
-flatorange      = '#fd7c0f','#f59a2f' #2 
+flatred         = '#ba181b','#cc231d' #1 
+flatorange      = '#d95b02','#e87121' #2 
 flatyellow      = '#e5a50a','#f5c211' #3 
-flatsand        = '#c0833f','#a68c71' #4 
+flatsand        = '#94816f','#a68c71' #4 
 flatnavyblue    = '#434c5e','#4c566a' #5 
-flatblack       = '#242424','#2f2f2f' #6 
+flatblack       = '#272727','#393229' #6 
 flatmagenta     = '#9d53b5','#b172c1' #7 
-flatteal        = '#4d646f','#607d8b' #8 
-flatskyblue     = '#3584e4','#478fe6' #9 
-flatgreen       = '#27ae61','#2dcc70' #10 
+flatteal        = '#3b6073','#4a7586' #8 
+flatskyblue     = '#3584e4','#478fe6' #9 default gnome-shell colors
+flatgreen       = '#27ae61','#39b963' #10 
 flatmint        = '#16a086','#1bbc9b' #11 
-flatwhite       = '#5e5c64','#9a9996' #12 
+flatwhite       = '#5e5c64','#706766' #12 
 flatgray        = '#7e8c8d','#95a5a5' #13 
 flatforestgreen = '#2e5037','#345f41' #14 
 flatpurple      = '#7b50ff','#8560ff' #15 
-flatbrown       = '#63452c','#986a44' #16 
-flatplum        = '#4f2b4f','#5e335e' #17 
+flatbrown       = '#63452c','#75502e' #16 
+flatplum        = '#5e335e','#765184' #17 
 flatwatermelon  = '#d95459','#ef727a' #18 
 flatlime        = '#7ebd61','#a2c95d' #19 
-flatpink        = '#d45b9e','#f47cc3' #20 
+flatpink        = '#ee58a2','#ec89ba' #20 
 flatmaroon      = '#662722','#79302a' #21 
 flatcoffee      = '#8e725d','#a28671' #22 
-flatpowderblue  = '#6a84b4','#89b4fa' #23 
+flatpowderblue  = '#6a84b4','#7c8fb6' #23 
 flatblue        = '#384c81','#5165a2' #24 
 
 colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
