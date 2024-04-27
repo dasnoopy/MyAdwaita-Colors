@@ -1,8 +1,12 @@
 # MyAdwaita-Colors
 
-Python bash script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes ( gnome v46 only )
+Python bash script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes ( **gnome v46 only** )
+
+**Disclaimer:**
+This script is based on my distro configuration.May not work properly on your system!
 
 **Requirements:**
+- python 3.x 
 - install ADW-GTK3 theme https://github.com/lassekongo83/adw-gtk3 for a better gtk3/4 theme ;-)
 - install gnome-tweaks utility to change gnome-shell theme
 - install and activate gnome-shell users-theme extensions (should be part of default gnome installation)
