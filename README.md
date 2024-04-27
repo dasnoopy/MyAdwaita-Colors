@@ -1,12 +1,14 @@
 # MyAdwaita-Colors
 
-Python bash script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes ( **gnome v46 only** )
+- A gnome-shell theme ( **gnome v46 only** ) based on vanilla gnome-shell theme: it use nord theme color schema for background and, mainly, less rounded borders and minor padding.
+- Provide also a python script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes 
+- It's a dark only gnome-shell theme. 
 
 **Disclaimer:**
 - This script may not work properly on your system!
 
 **Requirements:**
-- python 3.x 
+- python 3.1x
 - install ADW-GTK3 theme https://github.com/lassekongo83/adw-gtk3 for a better gtk3/4 theme ;-)
 - install gnome-tweaks utility to change gnome-shell theme
 - install and activate gnome-shell users-theme extensions (should be part of default gnome installation)
@@ -17,9 +19,7 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 - if missing, script create `gtk.css` file in folder `/home/users/.config/gtk-4.0` with following lines to set default gnome accent colors
   -   `@define-color accent_color #3584e4`
   -   `@define-color accent_bg_color #478fe6`
-- if gtk.css already exist with some customisation, insert these lines in the file, before start using this script 
-- provided gnome-shell.css file is a modded version of vanilla gnome-shell theme: it use nord theme color schema for background and, mainly, less rounded borders and minor padding) 
-- Only gnome-shell dark-theme. Sorry!
+- if gtk.css already exist with some customisation, insert, manually, these lines in the file, before start using this script 
  
 ![MyAdwaita-Colors](https://raw.github.com/dasnoopy/MyAdwaita-Colors/main/screenshot/MyAdwaita-Colors.png)
 
