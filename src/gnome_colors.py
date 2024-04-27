@@ -64,6 +64,10 @@ def hex_to_rgb(hexa):
 def write_file():
 	config.write(open(iniFname, 'w', encoding='utf-8'))
 
+# first color is the accent color (primary)
+# second color is the ligher accent color (secondary) 
+# secondary color could be primary + 120B02 (hex)
+
 flatred         = '#ba181b','#d02b3b' #1 
 flatorange      = '#fd7c0f','#f59a2f' #2 
 flatyellow      = '#e5a50a','#f5c211' #3 
