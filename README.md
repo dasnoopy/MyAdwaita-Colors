@@ -7,8 +7,8 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 - install ADW-GTK3 theme  https://github.com/lassekongo83/adw-gtk3
 - script find and replace colors in gnome-shell.css e gtk.css file
 - if missing, script create gtk.css file in folder /home/users/.config/gtk-4.0 with following lines to set gtk4 accent colors
-  - @define-color accent_color #3584e4;
-  - @define-color accent_bg_color #478fe6;
+  -   `@define-color accent_color #3584e4`
+  -   `@define-color accent_bg_color #478fe6`
 - if gtk.css already exist with some customisation, insert these lines in the file, before start using this script 
 - provided gnome-shell.css file is a modded version of vanilla gnome-shell theme: it use nord theme color schema for background and, mainly, less rounded borders and minor padding) 
 - Only gnome-shell dark-theme. Sorry!
@@ -35,6 +35,7 @@ Python bash script to set an accent color (from 24 preset) to gnome-shell and gt
 
  **TODO:**
 - read color combination from external conf file : only read (add/remove can be done manually)
+- run script out of gnome-shell folder
 
 
 

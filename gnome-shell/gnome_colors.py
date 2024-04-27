@@ -58,7 +58,7 @@ def exit_on_error(message: str):
 def confirm_prompt(question: str) -> bool:
     reply = None
     while reply not in ("y", "n"):
-        reply = input(f"{question} (Y/N): ").casefold()
+        reply = input(f"{question} (y/n): ").casefold()
     return (reply == "y")
 
 def hex_to_rgb(hexa):
@@ -128,9 +128,9 @@ R2 = str(rgb2[0])
 G2 = str(rgb2[1])
 B2 = str(rgb2[2])
 
-print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}❯❯ Change accent color for gnome shell and gtk.css version 46.x{colors.reset}")
+print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}Change accent color for gnome shell and gtk.css version 46.x{colors.reset}")
 print ('')
-print ('❯❯ Current color schema: \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_lighter_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_darker_color + ' \033[0m')
+print ('Current color schema: '' \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_lighter_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_darker_color + ' \033[0m')
 print ('')
 
 def print_matrix_with_indices(list):
@@ -148,7 +148,7 @@ def print_matrix_with_indices(list):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {colors.bold}{index + 1:>2}"') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
+            print (f" {index + 1:>2}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print()
@@ -161,29 +161,29 @@ x = ''
 n = len(colors_list)
 
 while not (x.isdigit() and int(x) in range(1, n + 1)):
-    x = input(f'❯❯ New color schema? (1 to {n}): ')
+    x = input(f'Choose a color schema? (1 to {n}): ')
 
 replace_lighter_color = (colors_list[int(x)-1])[0]
 replace_darker_color  = (colors_list[int(x)-1])[1]
 
 # some checks
 if replace_lighter_color == '' or replace_darker_color == '':
-	 exit_on_error ('❯❯ No news colors defined: exit!')
+	 exit_on_error ('[Info] no news colors defined: exit!')
 elif replace_lighter_color == search_darker_color:
-	exit_on_error('❯❯ Unable to proceed: new lighter color is equal to current darker color!')
+	exit_on_error('[Warning] unable to proceed: new lighter color is equal to current darker color!')
 elif replace_darker_color == search_lighter_color:
-	exit_on_error('❯❯ Unable to proceed: new darker color is equal to current ligher color!')
+	exit_on_error('[Warning] unable to proceed: new darker color is equal to current ligher color!')
 elif replace_lighter_color == replace_darker_color:
-	exit_on_error('❯❯ Unable to proceed: new lighter and darker color are the same!')
+	exit_on_error('[Warning] unable to proceed: new lighter and darker color are the same!')
 elif replace_lighter_color == search_lighter_color and replace_darker_color == search_darker_color:
-	exit_on_error('❯❯ Nothing to change : current and new color schema are equal!')
+	exit_on_error('[Info] nothing to change : current and new color schema are equal!')
 
 # get shadow-box rgba color from ligher color
 replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_lighter_color)).rstrip(')') +','
 
-reply = confirm_prompt("❯❯ Are you sure to proceed?")
+reply = confirm_prompt("Are you sure to proceed?")
 if reply == False:
-	exit_on_error('❯❯ Exit without do any change!')
+	exit_on_error('[Info] exit without do any change!')
 
 # Opening our text file in read only
 # mode using the open() function
@@ -243,7 +243,7 @@ write_file()
 os.system("dbus-send --session --dest=org.gnome.Shell --print-reply --type=method_call /org/gnome/Shell org.gnome.Shell.Eval string:'Main.loadTheme(); ' > /dev/null")
 # final greetings
 print ('')
-print (f"{colors.reset}{colors.bold}{colors.fg.orange}❯❯ Done. Enjoy your new gnome-shell accent color ;-){colors.reset}")
+print (f"{colors.reset}{colors.bold}{colors.fg.orange}Done. Enjoy your new gnome-shell accent color ;-){colors.reset}")
 print ('')
 
 sys.exit(0)
