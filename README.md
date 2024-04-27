@@ -5,7 +5,7 @@
 - It's a dark only gnome-shell theme. 
 
 **Disclaimer:**
-- This script may not work properly on your system!
+- The python script may not work properly on your system! (tested on archlinux system with gnome46.1)
 
 **Requirements:**
 - python 3.1x
