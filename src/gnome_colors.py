@@ -70,7 +70,7 @@ def write_file():
 # ALL 48 colors MUST be different!
 
 flatred         = '#ba181b','#cc231d' #1 
-flatorange      = '#d95b02','#e87121' #2 
+flatorange      = '#d95b02','#e7700d' #2 
 flatyellow      = '#e5a50a','#f5c211' #3 
 flatsand        = '#94816f','#a68c71' #4 
 flatnavyblue    = '#434c5e','#4c566a' #5 
@@ -99,8 +99,6 @@ colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
                flatgray,flatforestgreen,flatpurple,flatbrown,flatplum,flatwatermelon,
                flatlime,flatpink,flatmaroon,flatcoffee,flatpowderblue,flatblue]
 
-# clean screen and welcome message
-os.system('clear')
 # define some variables
 curr_dir = os.getcwd()
 iniFname = 'colors.ini'
@@ -121,7 +119,14 @@ search_secondary_color = config['COLORS']['hexsecondary']
 search_rgba_color = config['COLORS']['rgbaprimary'] 
 
 #index of current color schema
-idx=(next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1)
+#if schema not found between defined 24 preset > 0 is returned!
+while True:
+	try:
+		idx=(next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1)
+		break
+	except StopIteration:
+		idx=0
+		break
 
 rgb1 = hex_to_rgb(search_primary_color)
 rgb2 = hex_to_rgb(search_secondary_color)
@@ -134,6 +139,8 @@ R2 = str(rgb2[0])
 G2 = str(rgb2[1])
 B2 = str(rgb2[2])
 
+# clean screen and welcome message
+os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors gnome shell theme (and gtk4 theme){colors.reset}")
 print ('')
 print ('Current color schema: '+ str(idx) + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
@@ -167,12 +174,12 @@ x = ''
 n = len(colors_list)
 
 while not (x.isdigit() and int(x) in range(1, n + 1)):
-    x = input(f'Choose a color schema? (1 to {n}): ')
+    x = input(f'Choose a new color schema? (1 to {n}): ')
 
 replace_primary_color = (colors_list[int(x)-1])[0]
 replace_secondary_color  = (colors_list[int(x)-1])[1]
 
-# some checks
+# some test before save and aplly new color schema 
 if replace_primary_color == '' or replace_secondary_color == '':
 	 exit_on_error ('[Info] no news colors defined: exit!')
 elif replace_primary_color == search_secondary_color:
@@ -187,7 +194,7 @@ elif replace_primary_color == search_primary_color and replace_secondary_color =
 # get rgba color from ligher color
 replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_primary_color)).rstrip(')') +','
 
-reply = confirm_prompt("Are you sure to proceed?")
+reply = confirm_prompt("Are you sure to continue?")
 if reply == False:
 	exit_on_error('[Info] exit without do any change!')
 

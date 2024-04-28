@@ -42,6 +42,9 @@
 
  **TODO:**
 - read two colours combination from external conf file : only read (add/remove can be done manually)
+- pass option to script to get color from different list file (use colors.ini?): this will permit to
+  have infinire color palette
+- if implement load colors from file, check on load that all colors are different! to avoid mess in gnome-shell.css
 - better gtk.css management
   - add lines in append and only at first run and if file already exist
 
