@@ -378,7 +378,7 @@ StEntry {
   font-size: 0.727em; }
 
 .unlock-dialog-clock .unlock-dialog-clock-time, #panel, .weather-button .weather-box .weather-grid .weather-forecast-temp, .weather-button .weather-box .weather-grid .weather-forecast-time, .world-clocks-button .world-clocks-grid .world-clocks-timezone, .world-clocks-button .world-clocks-grid .world-clocks-time, .events-button .events-box .events-list .event-box .event-time, .calendar .calendar-day-heading, .calendar .calendar-day {
-  font-feature-settings: "tnum"; }
+  font-feature-settings: "normal"; }
 
 /* modifica: notifiche OSD quali volume e switch desktop virtuali con frecce */
 /* OSD Elements */
@@ -1006,7 +1006,7 @@ StScrollBar {
     border-radius: 7px; }
   .calendar .calendar-week-number {
     font-weight: normal;
-    font-feature-settings: "tnum";
+    font-feature-settings: "normal";
     text-align: center;
     margin: 6px;
     padding: 0 6px;
@@ -1427,7 +1427,7 @@ StScrollBar {
   border-radius: 16px;
   font-size: 3em;
   font-weight: bold;
-  font-feature-settings: "tnum";
+  font-feature-settings: "normal";
   margin: 12px;
   padding: 12px;
   text-align: center;
