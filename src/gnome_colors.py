@@ -144,12 +144,13 @@ os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors gnome shell theme (and gtk4 theme){colors.reset}")
 print ('')
 print ('Current color schema: '+ str(idx) + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
-print ('')
+print ('┌─────────────────────────┬─────────────────────────┬─────────────────────────┬─────────────────────────┐')
 
 def print_matrix_with_indices(list):
     index=0
     # Loop over each row
     for i in range(6):
+        print("│", end='')
         # Loop over each column in the current row
         for j in range(4):
             # Print element at row i, column j
@@ -161,14 +162,15 @@ def print_matrix_with_indices(list):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {index + 1:>2}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
+            print (f" {index + 1:02d}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm  ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' │')
             index += 1
         # Print a new line after each row
-        print()
+        print("")
 
 # Test the function with our matrix
 print_matrix_with_indices(colors_list)
-print ('')
+print ('└─────────────────────────┴─────────────────────────┴─────────────────────────┴─────────────────────────┘')
+
 
 x = ''
 n = len(colors_list)
@@ -179,7 +181,7 @@ while not (x.isdigit() and int(x) in range(1, n + 1)):
 replace_primary_color = (colors_list[int(x)-1])[0]
 replace_secondary_color  = (colors_list[int(x)-1])[1]
 
-# some test before save and aplly new color schema 
+# some test before save and apply new color schema 
 if replace_primary_color == '' or replace_secondary_color == '':
 	 exit_on_error ('[Info] no news colors defined: exit!')
 elif replace_primary_color == search_secondary_color:
