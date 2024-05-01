@@ -69,9 +69,9 @@ def write_file():
 # secondary color could be primary + 120B02 (hex)
 # ALL 48 colors MUST be different!
 
-flatred         = '#ba181b','#cc231d' #1 
-flatorange      = '#d95b02','#e7700d' #2 
-flatyellow      = '#e5a50a','#f5c211' #3 
+flatred         = '#c35352','#D55E54' #1 
+flatorange      = '#ea5211','#fc5d13' #2 
+flatyellow      = '#dbb237','#edbd39' #3 
 flatsand        = '#94816f','#a68c71' #4 
 flatnavyblue    = '#434c5e','#4c566a' #5 
 flatblack       = '#272727','#393229' #6 
@@ -85,7 +85,7 @@ flatgray        = '#7e8c8d','#95a5a5' #13
 flatforestgreen = '#2e5037','#345f41' #14 
 flatpurple      = '#7b50ff','#8560ff' #15 
 flatbrown       = '#63452c','#75502e' #16 
-flatplum        = '#5e335e','#765184' #17 
+flatplum        = '#8f75aa','#A180AC' #17 
 flatwatermelon  = '#d95459','#ef727a' #18 
 flatlime        = '#7ebd61','#a2c95d' #19 
 flatpink        = '#ee58a2','#ec89ba' #20 
@@ -122,7 +122,7 @@ search_rgba_color = config['COLORS']['rgbaprimary']
 #if schema not found between defined 24 preset > 0 is returned!
 while True:
 	try:
-		idx=(next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1)
+		idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
 		break
 	except StopIteration:
 		idx=0
@@ -143,7 +143,7 @@ B2 = str(rgb2[2])
 os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors gnome shell theme (and gtk4 theme){colors.reset}")
 print ('')
-print ('Current color schema: '+ str(idx) + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+print ('Current color schema: '+ f"{idx:02d}" + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 print ('┌─────────────────────────┬─────────────────────────┬─────────────────────────┬─────────────────────────┐')
 
 def print_matrix_with_indices(list):
@@ -165,12 +165,11 @@ def print_matrix_with_indices(list):
             print (f" {index + 1:02d}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm  ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' │')
             index += 1
         # Print a new line after each row
-        print("")
+        print('')
 
 # Test the function with our matrix
 print_matrix_with_indices(colors_list)
 print ('└─────────────────────────┴─────────────────────────┴─────────────────────────┴─────────────────────────┘')
-
 
 x = ''
 n = len(colors_list)
