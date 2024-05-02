@@ -69,13 +69,13 @@ def write_file():
 # secondary color could be primary + 120B02 (hex)
 # ALL 48 colors MUST be different!
 
-flatred         = '#c35352','#D55E54' #1 
-flatorange      = '#ea5211','#fc5d13' #2 
+flatred         = '#c35352','#d55e54' #1 
+flatorange      = '#ea5211','#f1701c' #2 
 flatyellow      = '#dbb237','#edbd39' #3 
 flatsand        = '#94816f','#a68c71' #4 
 flatnavyblue    = '#434c5e','#4c566a' #5 
 flatblack       = '#272727','#393229' #6 
-flatmagenta     = '#9d53b5','#b172c1' #7 
+flatmagenta     = '#8e67cf','#9c66ce' #7 
 flatteal        = '#3b6073','#4a7586' #8 
 flatskyblue     = '#3584e4','#478fe6' #9 default gnome-shell colors
 flatgreen       = '#27ae61','#39b963' #10 
@@ -85,10 +85,10 @@ flatgray        = '#7e8c8d','#95a5a5' #13
 flatforestgreen = '#2e5037','#345f41' #14 
 flatpurple      = '#7b50ff','#8560ff' #15 
 flatbrown       = '#63452c','#75502e' #16 
-flatplum        = '#8f75aa','#A180AC' #17 
+flatplum        = '#4c3e65','#654c8f' #17 
 flatwatermelon  = '#d95459','#ef727a' #18 
 flatlime        = '#7ebd61','#a2c95d' #19 
-flatpink        = '#ee58a2','#ec89ba' #20 
+flatpink        = '#d963b9','#e87bbf' #20 
 flatmaroon      = '#662722','#79302a' #21 
 flatcoffee      = '#8e725d','#a28671' #22 
 flatpowderblue  = '#5e81ac','#708cae' #23 
@@ -102,7 +102,7 @@ colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
 # define some variables
 curr_dir = os.getcwd()
 iniFname = 'colors.ini'
-gtk4Fname = os.path.expanduser('~') + "/.config/gtk-4.0/gtk.css"
+gtk4Fname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
 cssFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
@@ -221,7 +221,8 @@ with open(svgFname, 'r', encoding='utf-8') as file:
 with open(svgFname, 'w', encoding='utf-8') as file:
 	file.write(data)
 
-# if gtk.css file is missing, create and populated it...
+# if colors.css file is missing, create and populated it...
+# make sure to add  " @import 'colors.css'; " line to gtk.css
 if not os.path.exists(gtk4Fname):
 	# Open the file in append mode
 	with open(gtk4Fname, 'a', encoding='utf-8') as file:
