@@ -69,35 +69,38 @@ def write_file():
 # secondary color could be primary + 120B02 (hex)
 # ALL 48 colors MUST be different!
 
-flatred         = '#c1392b','#d3442d' #1 
-flatorange      = '#ea5211','#f1701c' #2 
-flatyellow      = '#dbb237','#edbd39' #3 
-flatsand        = '#94816f','#a68c71' #4 
-flatnavyblue    = '#434c5e','#4c566a' #5 
-flatblack       = '#272727','#393229' #6 
-flatmagenta     = '#8e67cf','#9c66ce' #7 
-flatteal        = '#3b6073','#4a7586' #8 
-flatskyblue     = '#3584e4','#478fe6' #9 default gnome-shell colors
-flatgreen       = '#27ae61','#39b963' #10 
-flatmint        = '#16a086','#1bbc9b' #11 
-flatwhite       = '#5e5c64','#706766' #12 
-flatgray        = '#7e8c8d','#95a5a5' #13 
-flatforestgreen = '#2e5037','#345f41' #14 
-flatpurple      = '#7b50ff','#8560ff' #15 
-flatbrown       = '#63452c','#75502e' #16 
-flatplum        = '#4c3e65','#654c8f' #17 
-flatwatermelon  = '#d95459','#ef727a' #18 
-flatlime        = '#7ebd61','#a2c95d' #19 
-flatpink        = '#d963b9','#e87bbf' #20 
-flatmaroon      = '#662722','#79302a' #21 
-flatcoffee      = '#8e725d','#a28671' #22 
-flatpowderblue  = '#5e81ac','#708cae' #23 
-flatblue        = '#384c81','#5165a2' #24 
+colors_list = [['#c1392b','#d3442d'],
+               ['#ea5211','#f1701c'],
+               ['#dbb237','#edbd39'],
+               ['#a7a37e','#b9ae80'],
+               ['#434c5e','#4c566a'],
+               ['#38a89d','#4dc0b5'],
+               ['#8e67cf','#9c66ce'],
+               ['#3b6073','#4a7586'],
+               ['#3584e4','#478fe6'],
+               ['#009980','#12a482'],
+               ['#3bb07f','#4dbb81'],
+               ['#5e5c64','#706766'],
+               ['#7e8c8d','#95a5a5'],
+               ['#2e5037','#345f41'],
+               ['#7b50ff','#8560ff'],
+               ['#63452c','#75502e'],
+               ['#4c3e65','#654c8f'],
+               ['#d95459','#ef727a'],
+               ['#84a960','#96b462'],
+               ['#d963b9','#e87bbf'],
+               ['#662722','#79302a'],
+               ['#8e725d','#a28671'],
+               ['#5e81ac','#708cae'],
+               ['#384c81','#5165a2']]
 
-colors_list = [flatred,flatorange,flatyellow,flatsand,flatnavyblue,flatblack,
-               flatmagenta,flatteal,flatskyblue,flatgreen,flatmint,flatwhite,
-               flatgray,flatforestgreen,flatpurple,flatbrown,flatplum,flatwatermelon,
-               flatlime,flatpink,flatmaroon,flatcoffee,flatpowderblue,flatblue]
+# sorted color list
+# colors_list = sorted(random_list, key=lambda x: x[0])[::-1]
+
+# check for duplicates colors in colors_list
+
+# set nr of colors combination defined in colors_list
+nr_of_colors = len(colors_list)
 
 # define some variables
 curr_dir = os.getcwd()
@@ -119,7 +122,7 @@ search_secondary_color = config['COLORS']['hexsecondary']
 search_rgba_color = config['COLORS']['rgbaprimary'] 
 
 #index of current color schema
-#if schema not found between defined 24 preset > 0 is returned!
+#if schema not found between 24 built-in presets , 0 is returned!
 while True:
 	try:
 		idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
@@ -141,18 +144,16 @@ B2 = str(rgb2[2])
 
 # clean screen and welcome message
 os.system('clear')
-print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors gnome shell theme (and gtk4 theme){colors.reset}")
+print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors theme.{colors.reset}")
 print ('')
 print ('Current color schema: '+ f"{idx:02d}" + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
-print ('┌─────────────────────────┬─────────────────────────┬─────────────────────────┬─────────────────────────┐')
-
+print ('')
 def print_matrix_with_indices(list):
     index=0
     # Loop over each row
-    for i in range(6):
-        print("│", end='')
+    for i in range(8):
         # Loop over each column in the current row
-        for j in range(4):
+        for j in range(3):
             # Print element at row i, column j
             rgb1 = hex_to_rgb(list[index][0])
             rgb2 = hex_to_rgb(list[index][1])
@@ -162,20 +163,19 @@ def print_matrix_with_indices(list):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {index + 1:02d}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm  ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' │')
+            print (f" {index + 1:02d}│ "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm  ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print('')
+    print ('')
 
 # Test the function with our matrix
 print_matrix_with_indices(colors_list)
-print ('└─────────────────────────┴─────────────────────────┴─────────────────────────┴─────────────────────────┘')
+
 
 x = ''
-n = len(colors_list)
-
-while not (x.isdigit() and int(x) in range(1, n + 1)):
-    x = input(f'Choose a new color schema? (1 to {n}): ')
+while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
+    x = input(f'Choose a new color schema? (1 to {nr_of_colors}): ')
 
 replace_primary_color = (colors_list[int(x)-1])[0]
 replace_secondary_color  = (colors_list[int(x)-1])[1]
