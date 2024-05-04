@@ -69,7 +69,7 @@ def write_file():
 # secondary color could be primary + 120B02 (hex)
 # ALL 48 colors MUST be different!
 
-flatred         = '#c35352','#d55e54' #1 
+flatred         = '#c1392b','#d3442d' #1 
 flatorange      = '#ea5211','#f1701c' #2 
 flatyellow      = '#dbb237','#edbd39' #3 
 flatsand        = '#94816f','#a68c71' #4 
