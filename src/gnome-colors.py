@@ -69,35 +69,41 @@ def write_file():
 # secondary color could be primary + 120B02 (hex)
 # ALL 48 colors MUST be different!
 
-colors_list = [['#c1392b','#d3442d'],
-               ['#ea5211','#f1701c'],
-               ['#dbb237','#edbd39'],
+colors_list = [['#ff3b2f','#ff453a'],
+               ['#ff9500','#ff9f0b'],
+               ['#ffcc02','#ffd709'],
                ['#a7a37e','#b9ae80'],
                ['#434c5e','#4c566a'],
-               ['#38a89d','#4dc0b5'],
-               ['#8e67cf','#9c66ce'],
+               ['#30b0c7','#40c8e0'],
+               ['#af52de','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
-               ['#009980','#12a482'],
-               ['#3bb07f','#4dbb81'],
+               ['#04c7be','#63efe2'],
+               ['#34c759','#32d74b'],
                ['#5e5c64','#706766'],
                ['#7e8c8d','#95a5a5'],
                ['#2e5037','#345f41'],
-               ['#7b50ff','#8560ff'],
+               ['#5856d7','#5e5ce6'],
                ['#63452c','#75502e'],
                ['#4c3e65','#654c8f'],
-               ['#d95459','#ef727a'],
-               ['#84a960','#96b462'],
+               ['#ff5066','#ff375f'],
+               ['#32ade6','#64d2ff'],
                ['#d963b9','#e87bbf'],
                ['#662722','#79302a'],
-               ['#8e725d','#a28671'],
+               ['#a2845e','#ac8e68'],
                ['#5e81ac','#708cae'],
                ['#384c81','#5165a2']]
 
-# sorted color list
+## sorted color list
 # colors_list = sorted(random_list, key=lambda x: x[0])[::-1]
 
-# check for duplicates colors in colors_list
+## check for duplicates colors in colors_list
+# colors_dup_list = colors_list
+# for test in colors_dup_list:
+#     result = [(item, i) for i, lst in enumerate(colors_list) for item in test if item in lst]
+#     print(f"- {test}  >> {result}")
+# sys.exit(0)
+
 
 # set nr of colors combination defined in colors_list
 nr_of_colors = len(colors_list)
@@ -146,8 +152,10 @@ B2 = str(rgb2[2])
 os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors theme.{colors.reset}")
 print ('')
-print ('Current color schema: '+ f"{idx:02d}" + ') \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+print ('Active accent colors is the nr. '+ f"{idx:02d}" + ': \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 print ('')
+print ('List of available accent colors (' + str(nr_of_colors) + '):')
+print ('─'*75)
 def print_matrix_with_indices(list):
     index=0
     # Loop over each row
@@ -167,7 +175,7 @@ def print_matrix_with_indices(list):
             index += 1
         # Print a new line after each row
         print('')
-    print ('')
+    print ('─'*75)
 
 # Test the function with our matrix
 print_matrix_with_indices(colors_list)
@@ -175,7 +183,7 @@ print_matrix_with_indices(colors_list)
 
 x = ''
 while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
-    x = input(f'Choose a new color schema? (1 to {nr_of_colors}): ')
+    x = input(f'Choose a new accent colors (1 to {nr_of_colors}): ')
 
 replace_primary_color = (colors_list[int(x)-1])[0]
 replace_secondary_color  = (colors_list[int(x)-1])[1]
