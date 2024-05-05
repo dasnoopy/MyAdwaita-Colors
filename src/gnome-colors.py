@@ -75,7 +75,7 @@ colors_list = [['#ff3b2f','#ff453a'],
                ['#a7a37e','#b9ae80'],
                ['#434c5e','#4c566a'],
                ['#30b0c7','#40c8e0'],
-               ['#af52de','#bf5af2'],
+               ['#9b4ddf','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
                ['#04c7be','#63efe2'],
@@ -152,7 +152,7 @@ B2 = str(rgb2[2])
 os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors theme.{colors.reset}")
 print ('')
-print ('Active accent colors is the nr. '+ f"{idx:02d}" + ': \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+print ('Active accent colors is the nr. '+ f"{idx:02d}" + ': \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + ' \033[0m│'+ '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 print ('')
 print ('List of available accent colors (' + str(nr_of_colors) + '):')
 print ('─'*75)
@@ -171,7 +171,7 @@ def print_matrix_with_indices(list):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {index + 1:02d}│ "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm  ' + (list[index][0]) + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
+            print (f" {index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m│'+ '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print('')
