@@ -89,13 +89,13 @@ colors_list = [['#ff3b2f','#ff453a'],
                ['#ff5066','#ff375f'],
                ['#32ade6','#64d2ff'],
                ['#d963b9','#e87bbf'],
-               ['#662722','#79302a'],
+               ['#b25657','#c46159'],
                ['#a2845e','#ac8e68'],
                ['#5e81ac','#708cae'],
                ['#384c81','#5165a2']]
 
 ## sorted color list
-# colors_list = sorted(random_list, key=lambda x: x[0])[::-1]
+#colors_list.sort()
 
 ## check for duplicates colors in colors_list
 # colors_dup_list = colors_list
@@ -137,6 +137,7 @@ while True:
 		idx=0
 		break
 
+# convert hex color to RGB just to print colors on terminal
 rgb1 = hex_to_rgb(search_primary_color)
 rgb2 = hex_to_rgb(search_secondary_color)
 
