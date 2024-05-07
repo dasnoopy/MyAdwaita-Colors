@@ -1,6 +1,6 @@
 # MyAdwaita-Colors
 
-- A gnome-shell theme ( **gnome v46 only** ) based on vanilla gnome-shell theme: it use nord theme colors schema for background and, mainly, less rounded borders and minor padding.
+- A gnome-shell theme ( **gnome v46 only** ) based on vanilla gnome-shell theme: it use nord theme colors schema for background and, mainly, less rounded borders and less padding.
 - Provide also a python script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes 
 - It's a dark only gnome-shell theme. 
 
@@ -28,8 +28,8 @@
 
 **How to use it:** 
 1) git clone MyAdwaita-Colors repo:	`# git clone https://github.com/dasnoopy/MyAdwaita-Colors`
-2) create (if not exist) folder `/home/user/.local/share/themes` and copy MyAdwaita-Colors folder into it
-3) create or modify the file `/home/user/.config/gtk-4.0/gtk.css`, adding this line: 
+2) create (if not exist) folder `/home/your_account/.local/share/themes` and copy MyAdwaita-Colors folder into it
+3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css`, adding this line: 
   -   `@import 'colors.css';`
   -   it will import some colors definition from file colors.css that will be create by the script itself
 
