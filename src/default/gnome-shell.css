@@ -19,7 +19,7 @@
  */
 /* Global Values */
 stage {
-  font-size: 1em;
+  font-size: 11pt;
   color: #ffffff; }
 
 /* Common Stylings */
@@ -378,7 +378,7 @@ StEntry {
   font-size: 0.727em; }
 
 .unlock-dialog-clock .unlock-dialog-clock-time, #panel, .weather-button .weather-box .weather-grid .weather-forecast-temp, .weather-button .weather-box .weather-grid .weather-forecast-time, .world-clocks-button .world-clocks-grid .world-clocks-timezone, .world-clocks-button .world-clocks-grid .world-clocks-time, .events-button .events-box .events-list .event-box .event-time, .calendar .calendar-day-heading, .calendar .calendar-day {
-  font-feature-settings: "tnum"; }
+  font-feature-settings: "normal"; }
 
 /* modifica: notifiche OSD quali volume e switch desktop virtuali con frecce */
 /* OSD Elements */
@@ -812,7 +812,7 @@ StScrollBar {
 .popup-menu-content, .candidate-popup-content {
   padding: 6px;
   background-color: #1C1F26;
-  border-radius: 7px;
+  border-radius: 11px;
   border: 0px solid #424242;
   box-shadow:  2px 2px 8px rgba(10, 10, 10, 0.3); }
 
@@ -942,9 +942,9 @@ StScrollBar {
 /* Date/Time Menu */
 #calendarArea {
   padding: 4px; }
-
+/* modifica border radius panel centrale data */
 .datemenu-popover {
-  border-radius: 7px; }
+  border-radius: 11px; }
 
 .datemenu-calendar-column {
   spacing: 6px; }
@@ -1006,7 +1006,7 @@ StScrollBar {
     border-radius: 7px; }
   .calendar .calendar-week-number {
     font-weight: normal;
-    font-feature-settings: "tnum";
+    font-feature-settings: "normal";
     text-align: center;
     margin: 6px;
     padding: 0 6px;
@@ -1113,7 +1113,7 @@ StScrollBar {
     .message-list-controls .dnd-button:focus {
       border-color: rgba(53, 132, 228, 0.6); }
 
-/* modifica */
+/* modifica  notifiche pannello centrale e.g.*/
 .message {
   padding: 0;
   margin: 0;
@@ -1427,7 +1427,7 @@ StScrollBar {
   border-radius: 16px;
   font-size: 3em;
   font-weight: bold;
-  font-feature-settings: "tnum";
+  font-feature-settings: "normal";
   margin: 12px;
   padding: 12px;
   text-align: center;
@@ -1917,9 +1917,10 @@ StScrollBar {
   .ripple-box:rtl {
     border-radius: 0 0 0 52px; }
 
+/* modifica quick settings panel */
 .quick-settings {
   padding: 9px;
-  border-radius: 7px; }
+  border-radius: 11px; }
   .quick-settings .icon-button, .quick-settings .login-dialog-button.cancel-button, .quick-settings .login-dialog-button.switch-user-button, .quick-settings .login-dialog-button.login-dialog-session-list-button, .quick-settings .calendar .calendar-month-header .pager-button, .calendar .calendar-month-header .quick-settings .pager-button, .quick-settings .message .message-header .message-expand-button, .message .message-header .quick-settings .message-expand-button,
   .quick-settings .message .message-header .message-close-button,
   .message .message-header .quick-settings .message-close-button, .quick-settings .screenshot-ui-show-pointer-button, .quick-settings .button {
@@ -1934,7 +1935,7 @@ StScrollBar {
   border-radius: 7px;
   min-width: 12em;
   max-width: 12em;
-  min-height: 3.073em;
+  min-height: 2.773em;
   border: none; }
 
 .quick-toggle {
@@ -2387,7 +2388,7 @@ StScrollBar {
   height: 4px;
   width: 18px;
   border-radius: 999px;
-  background-color: #0080ff;
+  background-color: #3584e4;
   margin-bottom: 2px; }
 
 .app-folder-dialog-container {

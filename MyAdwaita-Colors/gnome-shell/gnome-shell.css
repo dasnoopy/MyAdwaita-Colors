@@ -812,7 +812,7 @@ StScrollBar {
 .popup-menu-content, .candidate-popup-content {
   padding: 6px;
   background-color: #1C1F26;
-  border-radius: 7px;
+  border-radius: 11px;
   border: 0px solid #424242;
   box-shadow:  2px 2px 8px rgba(10, 10, 10, 0.3); }
 
@@ -942,9 +942,9 @@ StScrollBar {
 /* Date/Time Menu */
 #calendarArea {
   padding: 4px; }
-
+/* modifica border radius panel centrale data */
 .datemenu-popover {
-  border-radius: 7px; }
+  border-radius: 11px; }
 
 .datemenu-calendar-column {
   spacing: 6px; }
@@ -1113,7 +1113,7 @@ StScrollBar {
     .message-list-controls .dnd-button:focus {
       border-color: rgba(53, 132, 228, 0.6); }
 
-/* modifica */
+/* modifica  notifiche pannello centrale e.g.*/
 .message {
   padding: 0;
   margin: 0;
@@ -1917,9 +1917,10 @@ StScrollBar {
   .ripple-box:rtl {
     border-radius: 0 0 0 52px; }
 
+/* modifica quick settings panel */
 .quick-settings {
   padding: 9px;
-  border-radius: 7px; }
+  border-radius: 11px; }
   .quick-settings .icon-button, .quick-settings .login-dialog-button.cancel-button, .quick-settings .login-dialog-button.switch-user-button, .quick-settings .login-dialog-button.login-dialog-session-list-button, .quick-settings .calendar .calendar-month-header .pager-button, .calendar .calendar-month-header .quick-settings .pager-button, .quick-settings .message .message-header .message-expand-button, .message .message-header .quick-settings .message-expand-button,
   .quick-settings .message .message-header .message-close-button,
   .message .message-header .quick-settings .message-close-button, .quick-settings .screenshot-ui-show-pointer-button, .quick-settings .button {

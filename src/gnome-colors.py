@@ -97,7 +97,7 @@ colors_list = [['#ff3b2f','#ff453a'],
 ## sorted color list
 #colors_list.sort()
 
-## check for duplicates colors in colors_list
+# # check for duplicates colors in colors_list
 # colors_dup_list = colors_list
 # for test in colors_dup_list:
 #     result = [(item, i) for i, lst in enumerate(colors_list) for item in test if item in lst]
@@ -153,7 +153,7 @@ B2 = str(rgb2[2])
 os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors theme.{colors.reset}")
 print ('')
-print ('Active accent colors is the nr. '+ f"{idx:02d}" + ': \033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + ' \033[0m│'+ '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+print ('Active accent colors is the nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + ' \033[0m,'+ '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 print ('')
 print ('List of available accent colors (' + str(nr_of_colors) + '):')
 print ('─'*75)
@@ -172,7 +172,7 @@ def print_matrix_with_indices(list):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m│'+ '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
+            print (f" {index + 1:02d}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m,'+ '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print('')
