@@ -70,7 +70,7 @@ def write_file():
 # ALL 48 colors MUST be different!
 
 colors_list = [['#ff3b2f','#ff453a'],
-               ['#ff9500','#ff9f0b'],
+               ['#d25400','#e45f02'],
                ['#ffcc02','#ffd709'],
                ['#a7a37e','#b9ae80'],
                ['#434c5e','#4c566a'],
@@ -83,7 +83,7 @@ colors_list = [['#ff3b2f','#ff453a'],
                ['#5e5c64','#706766'],
                ['#7e8c8d','#95a5a5'],
                ['#2e5037','#345f41'],
-               ['#5856d7','#5e5ce6'],
+               ['#745dc5','#8668c7'],
                ['#63452c','#75502e'],
                ['#4c3e65','#654c8f'],
                ['#ff5066','#ff375f'],
@@ -152,11 +152,10 @@ B2 = str(rgb2[2])
 # clean screen and welcome message
 os.system('clear')
 print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors theme.{colors.reset}")
-print ('')
-print ('Active accent colors is the nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + ' \033[0m,'+ '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
-print ('')
-print ('List of available accent colors (' + str(nr_of_colors) + '):')
-print ('─'*75)
+print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'═'*68)
+print (f"{colors.reset}", end='')
+print ('Current accent colors is nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+print (f"{colors.reset}")
 def print_matrix_with_indices(list):
     index=0
     # Loop over each row
@@ -172,11 +171,12 @@ def print_matrix_with_indices(list):
             R2 = str(rgb2[0])
             G2 = str(rgb2[1])
             B2 = str(rgb2[2])
-            print (f" {index + 1:02d}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m,'+ '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
+            print (f" {index + 1:02d}) "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end=' ')
             index += 1
         # Print a new line after each row
         print('')
-    print ('─'*75)
+    print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*68)
+    print (f"{colors.reset}", end='')
 
 # Test the function with our matrix
 print_matrix_with_indices(colors_list)
