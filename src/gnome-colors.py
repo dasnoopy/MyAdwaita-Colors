@@ -46,7 +46,6 @@ class colors:
 		lightgrey = '\033[47m'
 
 def exit_on_error(message: str):
-	print('')
 	print (f"{colors.reset}{colors.fg.yellow}{message}{colors.reset}")
 	print('')
 	sys.exit(1)
@@ -69,7 +68,7 @@ def write_file():
 # check a value or value range
 def checker(a):
 	num = int(a)
-	if num == 0 :
+	if num == 0 or num > 24:
 		raise argparse.ArgumentTypeError('Invalid value!')
 	return num
 
@@ -83,14 +82,19 @@ parser.add_argument('-c','--check-colors', action='store_true', dest='check_colo
 parser.add_argument('-l','--list-colors', action='store_true', dest='list_colors', default=False,
 		help='show list of colors schema, useful with -s option')
 
-parser.add_argument('-s','--set-colors', action='store_true', dest='set_colors', default=False,
-			help='set directly a new colors schema from 24 presets')
+parser.add_argument('-s','--sort-colors', action='store_true', dest='sort_colors', default=False,
+		help='sort colors list by HEX value')
+
+parser.add_argument('-a','--apply-colors', action='store', dest='apply_colors',type=checker,
+		help='apply a colors schema from 1 to 24 directly')
 
 args = parser.parse_args()
 
 checkColors = args.check_colors
 listColors = args.list_colors
-setColors = args.set_colors
+sortColors = args.sort_colors
+applyColors = args.apply_colors
+
 
 # define global variables
 curr_dir = os.getcwd()
@@ -100,52 +104,47 @@ cssFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnom
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
 
+current_schema = 0
 
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
 # secondary color could be primary + 120B02 (hex)
 # ALL 48 colors MUST be different!
 
-colors_list = [['#c1392b','#e84c3d'],
-               ['#d25400','#e45f02'],
-               ['#ffcc02','#ffd709'],
+colors_list = [['#bf392b','#e74d3d'],
+               ['#e8710f','#ec7c1d'],
+               ['#e89034','#e89d4e'],
                ['#a7a37e','#b9ae80'],
                ['#434c5e','#4c566a'],
-               ['#30b0c7','#40c8e0'],
+               ['#135e96','#2271b1'],
                ['#9b4ddf','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
-               ['#16a086','#1bbc9b'],
-               ['#27ae61','#2dcc70'],
+               ['#18a085','#1dbd9e'],
+               ['#26ae60','#2ecd70'],
                ['#5e5c64','#706766'],
                ['#7e8c8d','#95a5a5'],
                ['#8fb021','#a5c63b'],
                ['#745dc5','#8668c7'],
                ['#63452c','#75502e'],
-               ['#8d44ad','#9a59b5'],
+               ['#8d43ac','#9b5ab6'],
                ['#d95459','#ef727a'],
                ['#32ade6','#64d2ff'],
-               ['#d45b9e','#f47cc3'],
+               ['#f86368','#ff8085'],
                ['#b25657','#c46159'],
                ['#a2845e','#ac8e68'],
                ['#5e81ac','#708cae'],
                ['#384c81','#5165a2']]
 
-# set nr of colors combination defined in colors_list
-nr_of_colors = len(colors_list)
-
-
-## sorted color list
-#colors_list.sort()
-
 def check_colors():
-# check for duplicates colors in colors_list
+	# check for duplicates colors in colors_list
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightblue}"'Check for duplicated colors...')
+	print (f"{colors.reset}")
 	colors_dup_list = colors_list
 	for test in colors_dup_list:
 		result = [(item, i) for i, lst in enumerate(colors_list) for item in test if item in lst]
 		print(f"- {test}  >> {result}")
-
-
+	print('')
 
 def read_all_files():
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
@@ -155,7 +154,7 @@ def read_all_files():
 		
 	# Read ini file...
 	config.read(iniFname)
-	
+
 	global search_primary_color
 	global search_secondary_color
 	global search_rgba_color
@@ -171,6 +170,22 @@ def get_current_schema():
 	while True:
 		try:
 			idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
+			# convert hex color to RGB just to print colors on terminal
+			rgb1 = hex_to_rgb(search_primary_color)
+			rgb2 = hex_to_rgb(search_secondary_color)
+
+			R1 = str(rgb1[0])
+			G1 = str(rgb1[1])
+			B1 = str(rgb1[2])
+
+			R2 = str(rgb2[0])
+			G2 = str(rgb2[1])
+			B2 = str(rgb2[2])
+
+			if not applyColors:
+				print ('MyAdwaita-Colors is using schema nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+				print ('')
+
 			break
 		except StopIteration:
 			idx=0
@@ -179,7 +194,8 @@ def get_current_schema():
 
 def print_matrix_with_indices(list):
 	index=0
-	print (f"{colors.reset}")
+	print (f"{colors.reset}"'List of available schema colors:')
+	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*84)
 	# Loop over each row
 	for i in range(6):
 	# Loop over each column in the current row
@@ -193,11 +209,11 @@ def print_matrix_with_indices(list):
 			R2 = str(rgb2[0])
 			G2 = str(rgb2[1])
 			B2 = str(rgb2[2])
-			print (f" {index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end='')
+			print (f" {colors.reset}{index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end='')
 			index += 1
 		# Print a new line after each row
 		print('')
-	print (f"{colors.reset}")
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*84)
 
 
 def interactive_color_selection():
@@ -206,55 +222,43 @@ def interactive_color_selection():
 	global replace_secondary_color
 	global replace_rgba_color
 
-	# convert hex color to RGB just to print colors on terminal
-	rgb1 = hex_to_rgb(search_primary_color)
-	rgb2 = hex_to_rgb(search_secondary_color)
-
-	R1 = str(rgb1[0])
-	G1 = str(rgb1[1])
-	B1 = str(rgb1[2])
-
-	R2 = str(rgb2[0])
-	G2 = str(rgb2[1])
-	B2 = str(rgb2[2])
+	# set nr of colors combination defined in colors_list
+	nr_of_colors = len(colors_list)
+	
 
 	# clean screen and welcome message
-	os.system('clear')
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}GNOME-COLORS.PY: change accent color for MyAdwaita-Colors theme.{colors.reset}")
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'═'*84)
-	print ('')
-	print ('Color schema currently applied is nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
-	# print color list
-	print_matrix_with_indices(colors_list)
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*84)
-	print (f"{colors.reset}", end='')
+	if not applyColors:
+		print_matrix_with_indices(colors_list)
+		print (f"{colors.reset}", end='')
 
-	x = ''
-	while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
-	    x = input(f'Choose a new accent colors schema (1 to {nr_of_colors}): ')
-
+		x = ''
+		while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
+			x = input(f'Choose a new accent schema colors (1 to {nr_of_colors}): ')
+		
+		reply = confirm_prompt("Are you sure to continue?")
+		if reply == False:
+			exit_on_error('[I] exit without do any change!')
+	else:
+		x = applyColors
+		
 	# set new colors
 	replace_primary_color = (colors_list[int(x)-1])[0]
 	replace_secondary_color  = (colors_list[int(x)-1])[1]
 
 	# some test before save and apply new color schema 
-	if replace_primary_color == '' or replace_secondary_color == '':
-		 exit_on_error ('[I] no news colors defined: exit!')
-	elif replace_primary_color == search_secondary_color:
+	if replace_primary_color == search_secondary_color:
 		exit_on_error('[W] unable to proceed: new lighter color is equal to current darker color!')
 	elif replace_secondary_color == search_primary_color:
 		exit_on_error('[W] unable to proceed: new darker color is equal to current ligher color!')
 	elif replace_primary_color == replace_secondary_color:
-		exit_on_error('[W] unable to proceed: new lighter and darker color are the same!')
+		exit_on_error('[W] unable to proceed: new lighter and darker color are equal!')
 	elif replace_primary_color == search_primary_color and replace_secondary_color == search_secondary_color:
-		exit_on_error('[I] nothing to change : active and choosen colors schema are equal!')
+		exit_on_error('[W] nothing to change : active and choosen schema colors are equal!')
 
 	# get new rgba color from ligher color
 	replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_primary_color)).rstrip(')') +','
 
-	reply = confirm_prompt("Are you sure to continue?")
-	if reply == False:
-		exit_on_error('[I] exit without do any change!')
+
 
 def write_all_files ():
 	# Opening our text file in read only
@@ -314,29 +318,33 @@ def apply_theme():
 	#
 	os.system("dbus-send --session --dest=org.gnome.Shell --print-reply --type=method_call /org/gnome/Shell org.gnome.Shell.Eval string:'Main.loadTheme(); ' > /dev/null")
 	# final greetings
-	print ('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.orange}Done. Enjoy your new gnome-shell accent color ;-){colors.reset}")
+	#print ('')
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[I] All done. Enjoy your new gnome-shell accent color...{colors.reset}")
 	print ('')
 
 # main program
 def main():
+	#os.system('clear')
+	
 	# parse arguments
 	if checkColors:
 		check_colors()
 
 	elif listColors:
+		read_all_files()
+		get_current_schema()
 		print_matrix_with_indices(colors_list)
-	
-	elif setColors:
-		sys.exit(0)
 
 	else:
+		# sort color list if "-s"
+		if sortColors:
+			colors_list.sort()
 		read_all_files()
 		get_current_schema()
 		interactive_color_selection()
 		write_all_files()
 		apply_theme()
-		
+
 	# exit program
 	sys.exit(0)
 
