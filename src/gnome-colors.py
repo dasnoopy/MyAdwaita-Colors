@@ -134,14 +134,27 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#b25657','#c46159'],
                ['#a2845e','#ac8e68'],
                ['#5e81ac','#708cae'],
-               ['#384c81','#5165a2']]
+               ['#384c81','#4a5783']]
 
 # set nr of colors combination defined in colors_list
 # I guess that 24 preset are a good number ;-)
 nr_of_colors = len(colors_list)
-	
+
+# Function to validate
+# the HTML hexadecimal color code.
+def isValidHexaCode(str):
+	if (str[0] != '#'):
+		return False
+	if (not(len(str) == 4 or len(str) == 7)):
+		return False
+	for i in range(1, len(str)):
+		if (not((str[i] >= '0' and str[i] <= '9') or (str[i] >= 'a' and str[i] <= 'f') or (str[i] >= 'A' and str[i] <= 'F'))):
+			return False
+	return True
 
 def check_colors():
+	# check if colors in list are valid HEX colors
+
 	# check for duplicates colors in colors_list
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightblue}"'Check for duplicated colors...')
 	print (f"{colors.reset}")
@@ -199,7 +212,19 @@ def get_current_schema():
 		return idx
 
 def print_matrix_with_indices(list):
-	print_order = [0,6,12,18,1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23]
+	
+	# print (colors_list)
+	# print (type(colors_list[0]))
+	# print (type(colors_list))
+	# sys.exit(0)
+
+	print_order	=	[0,6,12,18,
+					 1,7,13,19,
+					 2,8,14,20,
+					 3,9,15,21,
+					 4,10,16,22,
+					 5,11,17,23]
+
 	index = order = 0
 
 	print (f"{colors.reset}"'List of available schema colors:')
@@ -237,16 +262,15 @@ def interactive_color_selection():
 		x = ''
 		while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
 			x = input(f'Choose a new accent schema colors (1 to {nr_of_colors}): ')
-		
 		reply = confirm_prompt("Are you sure to continue?")
 		if reply == False:
 			exit_on_error('[I] exit without do any change!')
 	else:
-		x = applyColors
+		x = int(applyColors)
 		
 	# set new colors
-	replace_primary_color = (colors_list[int(x)-1])[0]
-	replace_secondary_color  = (colors_list[int(x)-1])[1]
+	replace_primary_color = (colors_list[x - 1])[0]
+	replace_secondary_color  = (colors_list[x - 1])[1]
 
 	# some test before save and apply new color schema 
 	if replace_primary_color == search_secondary_color:
