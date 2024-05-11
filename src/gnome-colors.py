@@ -120,11 +120,11 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#9b4ddf','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
-               ['#18a085','#1dbd9e'],
-               ['#26ae60','#2ecd70'],
+               ['#3f713c','#4f8c4a'],
+               ['#80b577','#8dc682'],
                ['#5e5c64','#706766'],
                ['#7e8c8d','#95a5a5'],
-               ['#8fb021','#a5c63b'],
+               ['#42a146','#54ac48'],
                ['#745dc5','#8668c7'],
                ['#63452c','#75502e'],
                ['#8d43ac','#9b5ab6'],
@@ -140,10 +140,12 @@ def check_colors():
 	# check for duplicates colors in colors_list
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightblue}"'Check for duplicated colors...')
 	print (f"{colors.reset}")
+	indice=0
 	colors_dup_list = colors_list
 	for test in colors_dup_list:
-		result = [(item, i) for i, lst in enumerate(colors_list) for item in test if item in lst]
-		print(f"- {test}  >> {result}")
+		indice += 1
+		result = [(item) for i, lst in enumerate(colors_list) for item in test if item in lst]
+		print(f"{indice:02d} - {result}")
 	print('')
 
 def read_all_files():
@@ -185,7 +187,6 @@ def get_current_schema():
 			if not applyColors:
 				print ('MyAdwaita-Colors is using schema nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
-
 			break
 		except StopIteration:
 			idx=0
