@@ -185,7 +185,7 @@ def get_current_schema():
 			B2 = str(rgb2[2])
 
 			if not applyColors:
-				print ('MyAdwaita-Colors is using schema nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + '\033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+				print ('MyAdwaita-Colors is using schema nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
 			break
 		except StopIteration:
@@ -196,7 +196,7 @@ def get_current_schema():
 def print_matrix_with_indices(list):
 	index=0
 	print (f"{colors.reset}"'List of available schema colors:')
-	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*85)
+	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*89)
 	# Loop over each row
 	for i in range(6):
 	# Loop over each column in the current row
@@ -210,11 +210,11 @@ def print_matrix_with_indices(list):
 			R2 = str(rgb2[0])
 			G2 = str(rgb2[1])
 			B2 = str(rgb2[2])
-			print (f" {colors.reset}{index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + '\033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end='')
+			print (f" {colors.reset}{index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end='')
 			index += 1
 		# Print a new line after each row
 		print('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*85)
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*89)
 
 
 def interactive_color_selection():
