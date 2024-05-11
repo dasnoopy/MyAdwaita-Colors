@@ -127,7 +127,7 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#42a146','#54ac48'],
                ['#745dc5','#8668c7'],
                ['#63452c','#75502e'],
-               ['#8d43ac','#9b5ab6'],
+               ['#555fb0','#677cc0'],
                ['#d95459','#ef727a'],
                ['#32ade6','#64d2ff'],
                ['#f86368','#ff8085'],
@@ -196,7 +196,7 @@ def get_current_schema():
 def print_matrix_with_indices(list):
 	index=0
 	print (f"{colors.reset}"'List of available schema colors:')
-	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*84)
+	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*85)
 	# Loop over each row
 	for i in range(6):
 	# Loop over each column in the current row
@@ -214,7 +214,7 @@ def print_matrix_with_indices(list):
 			index += 1
 		# Print a new line after each row
 		print('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*84)
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*85)
 
 
 def interactive_color_selection():
@@ -229,9 +229,6 @@ def interactive_color_selection():
 
 	# clean screen and welcome message
 	if not applyColors:
-		print_matrix_with_indices(colors_list)
-		print (f"{colors.reset}", end='')
-
 		x = ''
 		while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
 			x = input(f'Choose a new accent schema colors (1 to {nr_of_colors}): ')
@@ -333,14 +330,16 @@ def main():
 
 	elif listColors:
 		read_all_files()
-		get_current_schema()
 		print_matrix_with_indices(colors_list)
+		get_current_schema()
 
 	else:
 		# sort color list if "-s"
 		if sortColors:
 			colors_list.sort()
 		read_all_files()
+		if not applyColors:
+			print_matrix_with_indices(colors_list)
 		get_current_schema()
 		interactive_color_selection()
 		write_all_files()
