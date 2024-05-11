@@ -136,6 +136,11 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#5e81ac','#708cae'],
                ['#384c81','#5165a2']]
 
+# set nr of colors combination defined in colors_list
+# I guess that 24 preset are a good number ;-)
+nr_of_colors = len(colors_list)
+	
+
 def check_colors():
 	# check for duplicates colors in colors_list
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightblue}"'Check for duplicated colors...')
@@ -194,24 +199,28 @@ def get_current_schema():
 		return idx
 
 def print_matrix_with_indices(list):
-	index=0
+	print_order = [0,6,12,18,1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23]
+	index = order = 0
+
 	print (f"{colors.reset}"'List of available schema colors:')
 	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*89)
 	# Loop over each row
-	for i in range(6):
+	for row in range(6):
 	# Loop over each column in the current row
-		for j in range(4):
+		for column in range(4):
 			# Print element at row i, column j
-			rgb1 = hex_to_rgb(list[index][0])
-			rgb2 = hex_to_rgb(list[index][1])
+			rgb1 = hex_to_rgb(list[order][0])
+			rgb2 = hex_to_rgb(list[order][1])
 			R1 = str(rgb1[0])
 			G1 = str(rgb1[1])
 			B1 = str(rgb1[2])
 			R2 = str(rgb2[0])
 			G2 = str(rgb2[1])
 			B2 = str(rgb2[2])
-			print (f" {colors.reset}{index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[index][1]) + ' \033[0m', end='')
+			print (f" {colors.reset}{order + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[order][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[order][1]) + ' \033[0m', end='')
 			index += 1
+			if index < nr_of_colors:
+				order = int(print_order[index])
 		# Print a new line after each row
 		print('')
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*89)
@@ -222,10 +231,6 @@ def interactive_color_selection():
 	global replace_primary_color
 	global replace_secondary_color
 	global replace_rgba_color
-
-	# set nr of colors combination defined in colors_list
-	nr_of_colors = len(colors_list)
-	
 
 	# clean screen and welcome message
 	if not applyColors:
