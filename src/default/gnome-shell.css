@@ -2222,8 +2222,8 @@ StScrollBar {
 #dash {
   margin-top: 12px; }
   #dash .dash-background {
-    background-color: transparent;
-    border-radius: 12px;
+    background-color: rgba(28, 31, 38, 0.3875);
+    border-radius: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
     padding-left: 10px;

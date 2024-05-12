@@ -61,7 +61,7 @@ def hex_to_rgb(hexa):
 	return tuple(int(hexa[i:i+2], 16)  for i in (0, 2, 4))
 
 # Just a small function to write the ini file
-def write_file():
+def write_ini_file():
 	config.write(open(iniFname, 'w', encoding='utf-8'))
 
 # function to convert the input and 
@@ -80,10 +80,10 @@ parser.add_argument('-c','--check-colors', action='store_true', dest='check_colo
 		help='check if there are duiplicate HEX colors in list provided')
 
 parser.add_argument('-l','--list-colors', action='store_true', dest='list_colors', default=False,
-		help='show list of colors schema, useful with -s option')
+		help='show list of colors schema')
 
 parser.add_argument('-s','--sort-colors', action='store_true', dest='sort_colors', default=False,
-		help='sort colors list by HEX value')
+		help='sort list of colors schema ordered by HEX value')
 
 parser.add_argument('-a','--apply-colors', action='store', dest='apply_colors',type=checker,
 		help='apply a colors schema from 1 to 24 directly')
@@ -99,8 +99,8 @@ applyColors = args.apply_colors
 # define global variables
 curr_dir = os.getcwd()
 iniFname = 'colors.ini'
-gtk4Fname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
-cssFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
+cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
+shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
 
@@ -108,30 +108,30 @@ current_schema = 0
 
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
-# secondary color could be primary + 120B02 (hex)
+# secondary color could be primary + 120B00 (hex)
 # ALL 48 colors MUST be different!
 
 colors_list = [['#bf392b','#e74d3d'],
                ['#e8710f','#ec7c1d'],
-               ['#e89034','#e89d4e'],
+               ['#d64613','#e85113'],
                ['#a7a37e','#b9ae80'],
-               ['#434c5e','#4c566a'],
-               ['#135e96','#2271b1'],
+               ['#455a64','#546e7a'],
+               ['#004391','#024e9d'],
                ['#9b4ddf','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
                ['#3f713c','#4f8c4a'],
-               ['#80b577','#8dc682'],
-               ['#5e5c64','#706766'],
-               ['#7e8c8d','#95a5a5'],
-               ['#42a146','#54ac48'],
+               ['#183f50','#2a4a50'],
+               ['#26a269','#38ad69'],
+               ['#78909c','#90a4ae'],
+               ['#74ba24','#86c524'],
                ['#745dc5','#8668c7'],
                ['#63452c','#75502e'],
                ['#555fb0','#677cc0'],
-               ['#d95459','#ef727a'],
-               ['#32ade6','#64d2ff'],
+               ['#7aa5db','#8cb0db'],
+               ['#1793d1','#299ed1'],
                ['#f86368','#ff8085'],
-               ['#b25657','#c46159'],
+               ['#d70751','#e90751'],
                ['#a2845e','#ac8e68'],
                ['#5e81ac','#708cae'],
                ['#384c81','#4a5783']]
@@ -170,7 +170,7 @@ def read_all_files():
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
 	if not os.path.exists(iniFname):
 		config['COLORS'] = {'hexprimary': '#3584e4', 'hexsecondary': '#478fe6', 'rgbaprimary': 'rgba(53, 132, 228,'}
-		write_file()
+		write_ini_file()
 		
 	# Read ini file...
 	config.read(iniFname)
@@ -203,7 +203,7 @@ def get_current_schema():
 			B2 = str(rgb2[2])
 
 			if not applyColors:
-				print ('MyAdwaita-Colors is using schema nr. '+ f"{idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color  + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+				print (f"{colors.reset}MyAdwaita-Colors is using schema nr. {idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
 			break
 		except StopIteration:
@@ -212,19 +212,7 @@ def get_current_schema():
 		return idx
 
 def print_matrix_with_indices(list):
-	
-	# print (colors_list)
-	# print (type(colors_list[0]))
-	# print (type(colors_list))
-	# sys.exit(0)
-
-	print_order	=	[0,6,12,18,
-					 1,7,13,19,
-					 2,8,14,20,
-					 3,9,15,21,
-					 4,10,16,22,
-					 5,11,17,23]
-
+	print_order	=	[0,6,12,18,1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23]
 	index = order = 0
 
 	print (f"{colors.reset}"'List of available schema colors:')
@@ -250,9 +238,7 @@ def print_matrix_with_indices(list):
 		print('')
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*89)
 
-
 def interactive_color_selection():
-
 	global replace_primary_color
 	global replace_secondary_color
 	global replace_rgba_color
@@ -266,21 +252,21 @@ def interactive_color_selection():
 		if reply == False:
 			exit_on_error('[I] exit without do any change!')
 	else:
-		x = int(applyColors)
+		x = applyColors
 		
 	# set new colors
-	replace_primary_color = (colors_list[x - 1])[0]
-	replace_secondary_color  = (colors_list[x - 1])[1]
+	replace_primary_color = (colors_list[int(x) - 1])[0]
+	replace_secondary_color  = (colors_list[int(x) - 1])[1]
 
 	# some test before save and apply new color schema 
 	if replace_primary_color == search_secondary_color:
-		exit_on_error('[W] unable to proceed: new lighter color is equal to current darker color!')
+		exit_on_error('[w] unable to proceed: new lighter color is equal to current darker color!')
 	elif replace_secondary_color == search_primary_color:
-		exit_on_error('[W] unable to proceed: new darker color is equal to current ligher color!')
+		exit_on_error('[w] unable to proceed: new darker color is equal to current ligher color!')
 	elif replace_primary_color == replace_secondary_color:
-		exit_on_error('[W] unable to proceed: new lighter and darker color are equal!')
+		exit_on_error('[w] unable to proceed: new lighter and darker color are equal!')
 	elif replace_primary_color == search_primary_color and replace_secondary_color == search_secondary_color:
-		exit_on_error('[W] nothing to change : active and choosen schema colors are equal!')
+		exit_on_error('[w] nothing to change : active and choosen schema colors are equal!')
 
 	# get new rgba color from ligher color
 	replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_primary_color)).rstrip(')') +','
@@ -290,7 +276,7 @@ def interactive_color_selection():
 def write_all_files ():
 	# Opening our text file in read only
 	# mode using the open() function
-	with open(cssFname, 'r', encoding='utf-8') as file:
+	with open(shellFname, 'r', encoding='utf-8') as file:
 		data = file.read()
 		# Searching and replacing the text
 		# using the replace() function
@@ -300,7 +286,7 @@ def write_all_files ():
 
 	# Opening our text file in write only
 	# mode to write the replaced content
-	with open(cssFname, 'w', encoding='utf-8') as file:
+	with open(shellFname, 'w', encoding='utf-8') as file:
 		file.write(data)
 
 	#update also toogle-on.svg with accent color...
@@ -312,29 +298,28 @@ def write_all_files ():
 
 	# if colors.css file is missing, create and populated it...
 	# make sure to add  " @import 'colors.css'; " line to gtk.css
-	if not os.path.exists(gtk4Fname):
+	if not os.path.exists(cssFname):
 		# Open the file in append mode
-		with open(gtk4Fname, 'a', encoding='utf-8') as file:
+		with open(cssFname, 'a', encoding='utf-8') as file:
 		# Append content to the file
 			file.write('/* accent color */')
 			file.write('\n @define-color accent_color ' + replace_primary_color + ';')
 			file.write('\n @define-color accent_bg_color ' + replace_secondary_color + ';')
 
-	# otherwise search and replace colors,  always in gtk.css
+	# otherwise search and replace colors,  always in colors.css
 	# be sure that two lines @define-color must be exists
-	with open(gtk4Fname, 'r', encoding='utf-8') as file:
+	with open(cssFname, 'r', encoding='utf-8') as file:
 		data = file.read()
 		data = data.replace(search_primary_color, replace_primary_color)
 		data = data.replace(search_secondary_color, replace_secondary_color)
-	with open(gtk4Fname, 'w', encoding='utf-8') as file:
+	with open(cssFname, 'w', encoding='utf-8') as file:
 		file.write(data)
-		
 
 	#write INI file with new colors
 	config['COLORS']['hexprimary'] = replace_primary_color
 	config['COLORS']['hexsecondary'] = replace_secondary_color
 	config['COLORS']['rgbaprimary'] = replace_rgba_color
-	write_file()
+	write_ini_file()
 
 def apply_theme():
 	# apply new colors on the fly using dbus-send command (gnome v46  tested)
@@ -346,7 +331,7 @@ def apply_theme():
 	os.system("dbus-send --session --dest=org.gnome.Shell --print-reply --type=method_call /org/gnome/Shell org.gnome.Shell.Eval string:'Main.loadTheme(); ' > /dev/null")
 	# final greetings
 	#print ('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[I] All done. Enjoy your new gnome-shell accent color...{colors.reset}")
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[i] All done. Enjoy your new gnome-shell accent color...{colors.reset}")
 	print ('')
 
 # main program
@@ -362,10 +347,14 @@ def main():
 		print_matrix_with_indices(colors_list)
 		get_current_schema()
 
+	elif sortColors:
+		colors_list.sort()
+		read_all_files()
+		print_matrix_with_indices(colors_list)
+		get_current_schema()
+
+
 	else:
-		# sort color list if "-s"
-		if sortColors:
-			colors_list.sort()
 		read_all_files()
 		if not applyColors:
 			print_matrix_with_indices(colors_list)
