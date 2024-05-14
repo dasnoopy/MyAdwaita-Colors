@@ -60,10 +60,6 @@ def hex_to_rgb(hexa):
 	hexa = hexa.lstrip('#')
 	return tuple(int(hexa[i:i+2], 16)  for i in (0, 2, 4))
 
-# Just a small function to write the ini file
-def write_ini_file():
-	config.write(open(iniFname, 'w', encoding='utf-8'))
-
 # function to convert the input and 
 # check a value or value range
 def checker(a):
@@ -103,8 +99,6 @@ cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
 shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
-
-current_schema = 0
 
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
@@ -161,16 +155,19 @@ def check_colors():
 	indice=0
 	colors_dup_list = colors_list
 	for test in colors_dup_list:
-		indice += 1
 		result = [(item) for i, lst in enumerate(colors_list) for item in test if item in lst]
-		print(f"{indice:02d} - {result}")
+		if colors_list[indice][0] == colors_list[indice][1]:
+			print(f"{colors.reset}{colors.bold}{colors.fg.lightred}{indice:02d} - {result}")
+		else:
+			print(f"{colors.reset}{indice + 1:02d} - {result}")
+		indice += 1
 	print('')
 
 def read_all_files():
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
 	if not os.path.exists(iniFname):
 		config['COLORS'] = {'hexprimary': '#3584e4', 'hexsecondary': '#478fe6', 'rgbaprimary': 'rgba(53, 132, 228,'}
-		write_ini_file()
+		config.write(open(iniFname, 'w', encoding='utf-8'))
 		
 	# Read ini file...
 	config.read(iniFname)
@@ -283,9 +280,7 @@ def write_all_files ():
 		data = data.replace(search_primary_color, replace_primary_color)
 		data = data.replace(search_secondary_color, replace_secondary_color)
 		data = data.replace(search_rgba_color, replace_rgba_color)
-
-	# Opening our text file in write only
-	# mode to write the replaced content
+	# Opening our text file in write only mode to write the replaced content
 	with open(shellFname, 'w', encoding='utf-8') as file:
 		file.write(data)
 
@@ -319,7 +314,7 @@ def write_all_files ():
 	config['COLORS']['hexprimary'] = replace_primary_color
 	config['COLORS']['hexsecondary'] = replace_secondary_color
 	config['COLORS']['rgbaprimary'] = replace_rgba_color
-	write_ini_file()
+	config.write(open(iniFname, 'w', encoding='utf-8'))
 
 def apply_theme():
 	# apply new colors on the fly using dbus-send command (gnome v46  tested)

@@ -43,13 +43,6 @@
 - https://github.com/tuberry/color-picker (gnome-extension to pick color)
 
  **TODO:**
-- give a description for the color combination
-- read list of 24 preset from external conf file : only read (add/remove can be done manually, editing the file)
-- if implement load colors from e.g. colors.ini file  , check on load that :
-   - all colors are different! to avoid mess in gnome-shell.css
-   - limit 24 preset  per file.
-- add/remove color combination from config file?
-
 
 
 
