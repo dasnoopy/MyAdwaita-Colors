@@ -102,7 +102,7 @@ config = configparser.ConfigParser()
 
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
-# secondary color could be primary + 120B00 (hex)
+# secondary color could be primary + 120900 (hex)
 # ALL 48 colors MUST be different!
 
 colors_list = [['#bf392b','#e74d3d'],
@@ -114,8 +114,8 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#9b4ddf','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
-               ['#3f713c','#4f8c4a'],
-               ['#183f50','#2a4a50'],
+               ['#60924b','#729d4b'],
+               ['#2c7873','#3e8173'],
                ['#26a269','#38ad69'],
                ['#78909c','#90a4ae'],
                ['#74ba24','#86c524'],
@@ -133,9 +133,10 @@ colors_list = [['#bf392b','#e74d3d'],
 # set nr of colors combination defined in colors_list
 # I guess that 24 preset are a good number ;-)
 nr_of_colors = len(colors_list)
+# colors are listed in [nr_of_rows]
+nr_of_rows = 6
 
-# Function to validate
-# the HTML hexadecimal color code.
+# Function to validate the HTML hexadecimal color code.
 def isValidHexaCode(str):
 	if (str[0] != '#'):
 		return False
@@ -208,29 +209,28 @@ def get_current_schema():
 			break
 		return idx
 
-def print_matrix_with_indices(list):
-	print_order	=	[0,6,12,18,1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23]
-	index = order = 0
+def print_matrix_with_indices(lista: list, righe: int):
+
+	# nr. of row can't be upper of nr_of_colors
+	if righe > nr_of_colors:
+		righe = nr_of_colors
 
 	print (f"{colors.reset}"'List of available schema colors:')
 	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*89)
 	# Loop over each row
-	for row in range(6):
+	for row in range(righe):
 	# Loop over each column in the current row
-		for column in range(4):
-			# Print element at row i, column j
-			rgb1 = hex_to_rgb(list[order][0])
-			rgb2 = hex_to_rgb(list[order][1])
+		for index in range(row, nr_of_colors, righe):
+			# Print elements
+			rgb1 = hex_to_rgb(lista[index][0])
+			rgb2 = hex_to_rgb(lista[index][1])
 			R1 = str(rgb1[0])
 			G1 = str(rgb1[1])
 			B1 = str(rgb1[2])
 			R2 = str(rgb2[0])
 			G2 = str(rgb2[1])
 			B2 = str(rgb2[2])
-			print (f" {colors.reset}{order + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (list[order][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (list[order][1]) + ' \033[0m', end='')
-			index += 1
-			if index < nr_of_colors:
-				order = int(print_order[index])
+			print (f" {colors.reset}{index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
 		# Print a new line after each row
 		print('')
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*89)
@@ -339,20 +339,20 @@ def main():
 
 	elif listColors:
 		read_all_files()
-		print_matrix_with_indices(colors_list)
+		print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
 
 	elif sortColors:
 		colors_list.sort()
 		read_all_files()
-		print_matrix_with_indices(colors_list)
+		print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
 
 
 	else:
 		read_all_files()
 		if not applyColors:
-			print_matrix_with_indices(colors_list)
+			print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
 		interactive_color_selection()
 		write_all_files()
