@@ -103,14 +103,15 @@ config = configparser.ConfigParser()
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
 # secondary color could be primary + 120900 (hex)
-# ALL 48 colors MUST be different!
+# Allcolors MUST be different!
+# for better visualiztion keep even num of colors (eg. )
 
 colors_list = [['#bf392b','#e74d3d'],
                ['#e8710f','#ec7c1d'],
                ['#d64613','#e85113'],
                ['#a7a37e','#b9ae80'],
                ['#455a64','#546e7a'],
-               ['#004391','#024e9d'],
+               ['#e5a50a','#f7ae0a'],
                ['#9b4ddf','#bf5af2'],
                ['#3b6073','#4a7586'],
                ['#3584e4','#478fe6'],
@@ -120,10 +121,10 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#78909c','#90a4ae'],
                ['#74ba24','#86c524'],
                ['#745dc5','#8668c7'],
-               ['#63452c','#75502e'],
+               ['#028fc7','#1498c7'],
                ['#555fb0','#677cc0'],
                ['#7aa5db','#8cb0db'],
-               ['#1793d1','#299ed1'],
+               ['#0d49b4','#1f52b4'],
                ['#f86368','#ff8085'],
                ['#d70751','#e90751'],
                ['#a2845e','#ac8e68'],
@@ -134,7 +135,7 @@ colors_list = [['#bf392b','#e74d3d'],
 # I guess that 24 preset are a good number ;-)
 nr_of_colors = len(colors_list)
 # colors are listed in [nr_of_rows]
-nr_of_rows = 6
+nr_of_rows = 8
 
 # Function to validate the HTML hexadecimal color code.
 def isValidHexaCode(str):
@@ -201,7 +202,7 @@ def get_current_schema():
 			B2 = str(rgb2[2])
 
 			if not applyColors:
-				print (f"{colors.reset}MyAdwaita-Colors is using schema nr. {idx:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+				print (f"{colors.reset}MyAdwaita-Colors is using schema nr. {idx:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
 			break
 		except StopIteration:
@@ -211,14 +212,15 @@ def get_current_schema():
 
 def print_matrix_with_indices(lista: list, righe: int):
 
-	# nr. of row can't be upper of nr_of_colors
-	if righe > nr_of_colors:
-		righe = nr_of_colors
+	# # nr. of row can't be upper of nr_of_colors
+	# if righe > nr_of_colors:
+	# 	righe = nr_of_colors
 
 	print (f"{colors.reset}"'List of available schema colors:')
-	print (f"{colors.reset}{colors.fg.lightgrey}"'─'*89)
+	print ('')
 	# Loop over each row
 	for row in range(righe):
+		print ('┃',end='')
 	# Loop over each column in the current row
 		for index in range(row, nr_of_colors, righe):
 			# Print elements
@@ -230,10 +232,10 @@ def print_matrix_with_indices(lista: list, righe: int):
 			R2 = str(rgb2[0])
 			G2 = str(rgb2[1])
 			B2 = str(rgb2[2])
-			print (f" {colors.reset}{index + 1:02d} "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
+			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
 		# Print a new line after each row
 		print('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgrey}"'─'*89)
+	print ('')
 
 def interactive_color_selection():
 	global replace_primary_color
