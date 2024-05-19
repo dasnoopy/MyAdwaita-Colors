@@ -8,6 +8,7 @@ import os
 import sys
 import argparse
 import configparser
+import colorsys
 
 class colors:
 	reset = '\033[0m'
@@ -102,13 +103,13 @@ config = configparser.ConfigParser()
 
 # first color is the accent color (primary)
 # second color is the ligher accent color (secondary) 
-# secondary color could be primary + 120900 (hex)
-# Allcolors MUST be different!
-# for better visualiztion keep even num of colors (eg. )
+# secondary color could be primary + 111111 (hex)
+# All colors MUST be different and in lower case!
+# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
 
-colors_list = [['#bf392b','#e74d3d'],
+colors_list = [['#bf392b','#d04a3c'],
                ['#e8710f','#ec7c1d'],
-               ['#d64613','#e85113'],
+               ['#d64613','#e75724'],
                ['#a7a37e','#b9ae80'],
                ['#455a64','#546e7a'],
                ['#e5a50a','#f7ae0a'],
@@ -119,12 +120,12 @@ colors_list = [['#bf392b','#e74d3d'],
                ['#2c7873','#3e8173'],
                ['#26a269','#38ad69'],
                ['#78909c','#90a4ae'],
-               ['#74ba24','#86c524'],
+               ['#7bb661','#86c524'],
                ['#745dc5','#8668c7'],
                ['#028fc7','#1498c7'],
                ['#555fb0','#677cc0'],
                ['#7aa5db','#8cb0db'],
-               ['#0d49b4','#1f52b4'],
+               ['#1975ff','#3284ff'],
                ['#f86368','#ff8085'],
                ['#d70751','#e90751'],
                ['#a2845e','#ac8e68'],
@@ -135,7 +136,7 @@ colors_list = [['#bf392b','#e74d3d'],
 # I guess that 24 preset are a good number ;-)
 nr_of_colors = len(colors_list)
 # colors are listed in [nr_of_rows]
-nr_of_rows = 8
+nr_of_rows = 6
 
 # Function to validate the HTML hexadecimal color code.
 def isValidHexaCode(str):
@@ -270,8 +271,6 @@ def interactive_color_selection():
 	# get new rgba color from ligher color
 	replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_primary_color)).rstrip(')') +','
 
-
-
 def write_all_files ():
 	# Opening our text file in read only
 	# mode using the open() function
@@ -349,7 +348,6 @@ def main():
 		read_all_files()
 		print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
-
 
 	else:
 		read_all_files()
