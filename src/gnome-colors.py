@@ -8,7 +8,7 @@ import os
 import sys
 import argparse
 import configparser
-import colorsys
+from colorsys import rgb_to_hls, hls_to_rgb
 
 class colors:
 	reset = '\033[0m'
@@ -57,9 +57,24 @@ def confirm_prompt(question: str) -> bool:
         reply = input(f"{question} (y/n): ").casefold()
     return (reply == "y")
 
-def hex_to_rgb(hexa):
-	hexa = hexa.lstrip('#')
-	return tuple(int(hexa[i:i+2], 16)  for i in (0, 2, 4))
+def hex_to_rgb(hex):
+	hex = hex.lstrip('#')
+	return tuple(int(hex[i:i+2], 16)  for i in (0, 2, 4))
+
+def rgb_to_hex(r, g, b):
+    return '#{:02x}{:02x}{:02x}'.format(r, g, b)
+
+def adjust_color_lightness(r, g, b, factor):
+    h, l, s = rgb_to_hls(r / 255.0, g / 255.0, b / 255.0)
+    l = max(min(l * factor, 1.0), 0.0)
+    r, g, b = hls_to_rgb(h, l, s)
+    return int(r * 255), int(g * 255), int(b * 255)
+
+def lighten_color(r, g, b, factor=0.1):
+    return adjust_color_lightness(r, g, b, 1 + factor)
+
+def darken_color(r, g, b, factor=0.1):
+    return adjust_color_lightness(r, g, b, 1 - factor)
 
 # function to convert the input and 
 # check a value or value range
@@ -107,36 +122,55 @@ config = configparser.ConfigParser()
 # All colors MUST be different and in lower case!
 # for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
 
-colors_list = [['#bf392b','#d04a3c'],
-               ['#e8710f','#ec7c1d'],
-               ['#d64613','#e75724'],
-               ['#a7a37e','#b9ae80'],
-               ['#455a64','#546e7a'],
-               ['#e5a50a','#f7ae0a'],
-               ['#9b4ddf','#bf5af2'],
-               ['#3b6073','#4a7586'],
-               ['#3584e4','#478fe6'],
-               ['#60924b','#729d4b'],
-               ['#2c7873','#3e8173'],
-               ['#26a269','#38ad69'],
-               ['#78909c','#90a4ae'],
-               ['#7bb661','#86c524'],
-               ['#745dc5','#8668c7'],
-               ['#028fc7','#1498c7'],
-               ['#555fb0','#677cc0'],
-               ['#7aa5db','#8cb0db'],
-               ['#1975ff','#3284ff'],
-               ['#f86368','#ff8085'],
-               ['#d70751','#e90751'],
-               ['#a2845e','#ac8e68'],
-               ['#5e81ac','#708cae'],
-               ['#384c81','#4a5783']]
+accent_colors = ['#bf392b',
+                 '#e8710f',
+                 '#d64613',
+                 '#a7a37e',
+                 '#455a64',
+                 '#e5a50a',
+                 '#9b4ddf',
+                 '#3b6073',
+                 '#3584e4',
+                 '#60924b',
+                 '#2c7873',
+                 '#26a269',
+                 '#78909c',
+                 '#7bb661',
+                 '#745dc5',
+                 '#028fc7',
+                 '#555fb0',
+                 '#7aa5db',
+                 '#1975ff',
+                 '#f86368',
+                 '#d70751',
+                 '#a2845e',
+                 '#5e81ac',
+                 '#384c81']
 
 # set nr of colors combination defined in colors_list
 # I guess that 24 preset are a good number ;-)
-nr_of_colors = len(colors_list)
+nr_of_colors = len(accent_colors)
 # colors are listed in [nr_of_rows]
 nr_of_rows = 6
+
+accent_rgb = list()
+lighter_rgb = list()
+lighter_colors = list()
+
+for i in range (nr_of_colors):
+	# convert each HEX accent color in RGB 
+	accent_rgb.append(hex_to_rgb (accent_colors[i]))
+
+	# create a RGB lighter color from RGB accent color
+	lighter_rgb.append(lighten_color(accent_rgb[i][0], accent_rgb[i][1], accent_rgb[i][2], 0.1))
+
+	# convert lighter RGB to ligher HEX
+	lighter_colors.append(rgb_to_hex(lighter_rgb[i][0], lighter_rgb[i][1], lighter_rgb[i][2]))
+
+
+# finally combine the accent colors and their lighter version
+colors_list = list(zip(accent_colors, lighter_colors))
+
 
 # Function to validate the HTML hexadecimal color code.
 def isValidHexaCode(str):
