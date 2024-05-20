@@ -92,7 +92,7 @@ parser.add_argument('-c','--check-colors', action='store_true', dest='check_colo
 		help='check if there are duiplicate HEX colors in list provided')
 
 parser.add_argument('-l','--list-colors', action='store_true', dest='list_colors', default=False,
-		help='show list of colors schema')
+		help='show list of all accent colors with HEX and RGB values')
 
 parser.add_argument('-s','--sort-colors', action='store_true', dest='sort_colors', default=False,
 		help='sort list of colors schema ordered by HEX value')
@@ -119,9 +119,9 @@ config = configparser.ConfigParser()
 # All colors MUST be different and in lower case!
 # lighter version of accent color are generated using colors conversion functions
 
-accent_colors = ['#bf392b','#ff4f00','#d64613','#20b2aa','#455a64','#e5a50a',
-                 '#483d8b','#3b6073','#3584e4','#60924b','#2c7873','#26a269',
-                 '#68778c','#7bb661','#856088','#028fc7','#555fb0','#1560bd',
+accent_colors = ['#bf392b','#cc5500','#f66151','#20b2aa','#5fa777','#367588',
+                 '#483d8b','#b57edc','#3584e4','#60924b','#2c7873','#26a269',
+                 '#68778c','#3eb489','#856088','#028fc7','#555fb0','#1560bd',
                  '#1975ff','#ff69b4','#d70751','#a2845e','#5e81ac','#384c81']
 
 # get nr of colors 
@@ -195,7 +195,7 @@ def read_all_files():
 
 def get_current_schema():
 	#index of current color schema
-	#if schema not found between 24 built-in presets , 0 is returned!
+	#if schema not found between built-in presets , nothing is displayed!
 	global idx
 	while True:
 		try:
@@ -203,15 +203,9 @@ def get_current_schema():
 			# convert hex color to RGB just to print colors on terminal
 			rgb1 = hex_to_rgb(search_primary_color)
 			rgb2 = hex_to_rgb(search_secondary_color)
-
-			R1 = str(rgb1[0])
-			G1 = str(rgb1[1])
-			B1 = str(rgb1[2])
-
-			R2 = str(rgb2[0])
-			G2 = str(rgb2[1])
-			B2 = str(rgb2[2])
-
+			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
+			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
+			#
 			if not applyColors:
 				print (f"{colors.reset}MyAdwaita-Colors is using schema nr. {idx:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
@@ -237,14 +231,13 @@ def print_matrix_with_indices(lista: list, righe: int):
 			# Print elements
 			rgb1 = hex_to_rgb(lista[index][0])
 			rgb2 = hex_to_rgb(lista[index][1])
-			R1 = str(rgb1[0])
-			G1 = str(rgb1[1])
-			B1 = str(rgb1[2])
-			R2 = str(rgb2[0])
-			G2 = str(rgb2[1])
-			B2 = str(rgb2[2])
-			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
-		# Print a new line after each row
+			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
+			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
+			#
+			if not listColors:
+				print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
+			else:
+				print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1) : <15}" + ', ' + f"{str(rgb2) : <15}", end='')		# Print a new line after each row
 		print('')
 	print ('')
 
@@ -350,7 +343,7 @@ def main():
 
 	elif listColors:
 		read_all_files()
-		print_matrix_with_indices(colors_list, nr_of_rows)
+		print_matrix_with_indices(colors_list, nr_of_colors)
 		get_current_schema()
 
 	elif sortColors:
