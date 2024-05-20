@@ -116,39 +116,16 @@ shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gn
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
 
-# first color is the accent color (primary)
-# second color is the ligher accent color (secondary) 
-# secondary color could be primary + 111111 (hex)
 # All colors MUST be different and in lower case!
+# lighter version of accent color are generated using colors conversion functions
+
+accent_colors = ['#bf392b','#ff4f00','#d64613','#20b2aa','#455a64','#e5a50a',
+                 '#483d8b','#3b6073','#3584e4','#60924b','#2c7873','#26a269',
+                 '#68778c','#7bb661','#856088','#028fc7','#555fb0','#1560bd',
+                 '#1975ff','#ff69b4','#d70751','#a2845e','#5e81ac','#384c81']
+
+# get nr of colors 
 # for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
-
-accent_colors = ['#bf392b',
-                 '#e8710f',
-                 '#d64613',
-                 '#a7a37e',
-                 '#455a64',
-                 '#e5a50a',
-                 '#9b4ddf',
-                 '#3b6073',
-                 '#3584e4',
-                 '#60924b',
-                 '#2c7873',
-                 '#26a269',
-                 '#78909c',
-                 '#7bb661',
-                 '#745dc5',
-                 '#028fc7',
-                 '#555fb0',
-                 '#7aa5db',
-                 '#1975ff',
-                 '#f86368',
-                 '#d70751',
-                 '#a2845e',
-                 '#5e81ac',
-                 '#384c81']
-
-# set nr of colors combination defined in colors_list
-# I guess that 24 preset are a good number ;-)
 nr_of_colors = len(accent_colors)
 # colors are listed in [nr_of_rows]
 nr_of_rows = 6
@@ -156,21 +133,20 @@ nr_of_rows = 6
 accent_rgb = list()
 lighter_rgb = list()
 lighter_colors = list()
+lum_factor = 0.1
 
 for i in range (nr_of_colors):
 	# convert each HEX accent color in RGB 
-	accent_rgb.append(hex_to_rgb (accent_colors[i]))
+	accent_rgb.append (hex_to_rgb (accent_colors[i]))
 
 	# create a RGB lighter color from RGB accent color
-	lighter_rgb.append(lighten_color(accent_rgb[i][0], accent_rgb[i][1], accent_rgb[i][2], 0.1))
+	lighter_rgb.append (lighten_color (accent_rgb[i][0], accent_rgb[i][1], accent_rgb[i][2], lum_factor))
 
 	# convert lighter RGB to ligher HEX
-	lighter_colors.append(rgb_to_hex(lighter_rgb[i][0], lighter_rgb[i][1], lighter_rgb[i][2]))
-
+	lighter_colors.append (rgb_to_hex (lighter_rgb[i][0], lighter_rgb[i][1], lighter_rgb[i][2]))
 
 # finally combine the accent colors and their lighter version
 colors_list = list(zip(accent_colors, lighter_colors))
-
 
 # Function to validate the HTML hexadecimal color code.
 def isValidHexaCode(str):
@@ -184,7 +160,7 @@ def isValidHexaCode(str):
 	return True
 
 def check_colors():
-	# check if colors in list are valid HEX colors
+	# check if colors in list are all differents
 
 	# check for duplicates colors in colors_list
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightblue}"'Check for duplicated colors...')
