@@ -47,15 +47,6 @@ class colors:
 		cyan = '\033[46m'
 		lightgrey = '\033[47m'
 
-# with open('colors.csv', 'r') as file:
-#    reader = csv.reader(file, delimiter='\t')
-#    data_list = list(reader)
-
-# def find_index_in_list_of_lists(list_of_lists, target_item):
-#     for i, sublist in enumerate(list_of_lists):
-#         if target_item in sublist:
-#             return i
-#     return None  # Elemento non trovato in nessuna sottolista
 
 def exit_on_error(message: str):
 	print (f"{colors.reset}{colors.fg.yellow}{message}{colors.reset}")
@@ -159,17 +150,6 @@ for i in range (nr_of_colors):
 # finally combine the accent colors and their lighter version
 colors_list = list(zip(accent_colors, lighter_colors))
 
-# # Function to validate the HTML hexadecimal color code.
-# def isValidHexaCode(str):
-# 	if (str[0] != '#'):
-# 		return False
-# 	if (not(len(str) == 4 or len(str) == 7)):
-# 		return False
-# 	for i in range(1, len(str)):
-# 		if (not((str[i] >= '0' and str[i] <= '9') or (str[i] >= 'a' and str[i] <= 'f') or (str[i] >= 'A' and str[i] <= 'F'))):
-# 			return False
-# 	return True
-
 def check_colors():
 	# check if colors in list are all differents
 
@@ -250,10 +230,6 @@ def print_matrix_with_indices(lista: list, righe: int):
 
 def print_info_list(lista: list, righe: int):
 
-	# # nr. of row can't be upper of nr_of_colors
-	# if righe > nr_of_colors:
-	# 	righe = nr_of_colors
-
 	print (f"{colors.reset}"'Info about all available schema colors:')
 	print ('')
 	# Loop over each row
@@ -266,17 +242,10 @@ def print_info_list(lista: list, righe: int):
 			rgb2 = hex_to_rgb(lista[index][1])
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			# cerca = lista[index][0].upper()
-			# idx = find_index_in_list_of_lists(data_list, cerca)
-			# if idx is not None:
-			# 	color_name = data_list[idx][0]
-			# else:
-			# 	color_name = ""
 			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1) : <15}" + ', ' + f"{str(rgb2) : <15}" + ' │ ', end='')
 		# Print a new line after each row
 		print('')
 	print ('')
-
 
 def interactive_color_selection():
 	global replace_primary_color
