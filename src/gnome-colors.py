@@ -91,13 +91,10 @@ def checker(a):
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-c','--check-colors', action='store_true', dest='check_colors', default=False,
-		help='check if there are duiplicate HEX colors in list provided')
+		help='check if there are duplicates HEX colors into the color list')
 
 parser.add_argument('-l','--list-colors', action='store_true', dest='list_colors', default=False,
-		help='show list of all accent colors with HEX and RGB values')
-
-parser.add_argument('-s','--sort-colors', action='store_true', dest='sort_colors', default=False,
-		help='sort list of colors schema ordered by HEX value')
+		help='show list of all accent colors with extra info like HEX and RGB values')
 
 parser.add_argument('-a','--apply-colors', action='store', dest='apply_colors',type=checker,
 		help='apply a colors schema from 1 to 24 directly')
@@ -106,7 +103,6 @@ args = parser.parse_args()
 
 checkColors = args.check_colors
 listColors = args.list_colors
-sortColors = args.sort_colors
 applyColors = args.apply_colors
 
 
@@ -152,20 +148,17 @@ colors_list = list(zip(accent_colors, lighter_colors))
 
 def check_colors():
 	# check if colors in list are all differents
-
 	# check for duplicates colors in colors_list
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightblue}"'Check for duplicated colors...')
-	print (f"{colors.reset}")
-	indice=0
-	colors_dup_list = colors_list
-	for test in colors_dup_list:
-		result = [(item) for i, lst in enumerate(colors_list) for item in test if item in lst]
-		if colors_list[indice][0] == colors_list[indice][1]:
-			print(f"{colors.reset}{colors.bold}{colors.fg.lightred}{indice:02d} - {result}")
-		else:
-			print(f"{colors.reset}{indice + 1:02d} - {result}")
-		indice += 1
-	print('')
+	from collections import defaultdict
+	_indices = defaultdict(list)
+
+	for index, item in enumerate(accent_colors):
+		_indices[item].append(index + 1)
+
+	for key, value in _indices.items():
+		if len(value) > 1:
+			# Do something when them
+			print(f"{colors.reset}{colors.fg.yellow}[w] color:",key,"is defined in position:", value,f"{colors.reset}")
 
 def read_all_files():
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
@@ -187,7 +180,6 @@ def read_all_files():
 def get_current_schema():
 	#index of current color schema
 	#if schema not found between built-in presets , nothing is displayed!
-	global idx
 	while True:
 		try:
 			idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
@@ -345,17 +337,12 @@ def main():
 	
 	# parse arguments
 	if checkColors:
+		print_matrix_with_indices(colors_list, nr_of_rows)
 		check_colors()
 
 	elif listColors:
 		read_all_files()
 		print_info_list(colors_list, nr_of_colors)
-		get_current_schema()
-
-	elif sortColors:
-		colors_list.sort()
-		read_all_files()
-		print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
 
 	else:
