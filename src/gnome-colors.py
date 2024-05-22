@@ -6,6 +6,7 @@
 
 import os
 import sys
+import csv
 import argparse
 import configparser
 from colorsys import rgb_to_hls, hls_to_rgb
@@ -45,6 +46,16 @@ class colors:
 		purple = '\033[45m'
 		cyan = '\033[46m'
 		lightgrey = '\033[47m'
+
+# with open('colors.csv', 'r') as file:
+#    reader = csv.reader(file, delimiter='\t')
+#    data_list = list(reader)
+
+# def find_index_in_list_of_lists(list_of_lists, target_item):
+#     for i, sublist in enumerate(list_of_lists):
+#         if target_item in sublist:
+#             return i
+#     return None  # Elemento non trovato in nessuna sottolista
 
 def exit_on_error(message: str):
 	print (f"{colors.reset}{colors.fg.yellow}{message}{colors.reset}")
@@ -119,16 +130,16 @@ config = configparser.ConfigParser()
 # All colors MUST be different and in lower case!
 # lighter version of accent color are generated using colors conversion functions
 
-accent_colors = ['#bf392b','#cc5500','#f66151','#20b2aa','#5fa777','#367588',
-                 '#483d8b','#b57edc','#3584e4','#60924b','#2c7873','#26a269',
-                 '#68778c','#3eb489','#856088','#028fc7','#555fb0','#1560bd',
-                 '#1975ff','#ff69b4','#d70751','#a2845e','#5e81ac','#384c81']
+accent_colors = ['#c1392b','#cc5500','#e2725b','#38a89d','#5fa777','#367588',
+                 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
+                 '#68778c','#3eb489','#856088','#028fc7','#5661b3','#1560bd',
+                 '#1f75fe','#ff69b4','#d70751','#de751f','#5e81ac','#384c81']
 
 # get nr of colors 
 # for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
 nr_of_colors = len(accent_colors)
 # colors are listed in [nr_of_rows]
-nr_of_rows = 6
+nr_of_rows = int(nr_of_colors / 4)
 
 accent_rgb = list()
 lighter_rgb = list()
@@ -148,16 +159,16 @@ for i in range (nr_of_colors):
 # finally combine the accent colors and their lighter version
 colors_list = list(zip(accent_colors, lighter_colors))
 
-# Function to validate the HTML hexadecimal color code.
-def isValidHexaCode(str):
-	if (str[0] != '#'):
-		return False
-	if (not(len(str) == 4 or len(str) == 7)):
-		return False
-	for i in range(1, len(str)):
-		if (not((str[i] >= '0' and str[i] <= '9') or (str[i] >= 'a' and str[i] <= 'f') or (str[i] >= 'A' and str[i] <= 'F'))):
-			return False
-	return True
+# # Function to validate the HTML hexadecimal color code.
+# def isValidHexaCode(str):
+# 	if (str[0] != '#'):
+# 		return False
+# 	if (not(len(str) == 4 or len(str) == 7)):
+# 		return False
+# 	for i in range(1, len(str)):
+# 		if (not((str[i] >= '0' and str[i] <= '9') or (str[i] >= 'a' and str[i] <= 'f') or (str[i] >= 'A' and str[i] <= 'F'))):
+# 			return False
+# 	return True
 
 def check_colors():
 	# check if colors in list are all differents
@@ -233,13 +244,39 @@ def print_matrix_with_indices(lista: list, righe: int):
 			rgb2 = hex_to_rgb(lista[index][1])
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			#
-			if not listColors:
-				print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
-			else:
-				print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1) : <15}" + ', ' + f"{str(rgb2) : <15}", end='')		# Print a new line after each row
+			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
 		print('')
 	print ('')
+
+def print_info_list(lista: list, righe: int):
+
+	# # nr. of row can't be upper of nr_of_colors
+	# if righe > nr_of_colors:
+	# 	righe = nr_of_colors
+
+	print (f"{colors.reset}"'Info about all available schema colors:')
+	print ('')
+	# Loop over each row
+	for row in range(righe):
+		print ('┃',end='')
+	# Loop over each column in the current row
+		for index in range(row, nr_of_colors, righe):
+			# Print elements
+			rgb1 = hex_to_rgb(lista[index][0])
+			rgb2 = hex_to_rgb(lista[index][1])
+			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
+			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
+			# cerca = lista[index][0].upper()
+			# idx = find_index_in_list_of_lists(data_list, cerca)
+			# if idx is not None:
+			# 	color_name = data_list[idx][0]
+			# else:
+			# 	color_name = ""
+			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1) : <15}" + ', ' + f"{str(rgb2) : <15}" + ' │ ', end='')
+		# Print a new line after each row
+		print('')
+	print ('')
+
 
 def interactive_color_selection():
 	global replace_primary_color
@@ -343,7 +380,7 @@ def main():
 
 	elif listColors:
 		read_all_files()
-		print_matrix_with_indices(colors_list, nr_of_colors)
+		print_info_list(colors_list, nr_of_colors)
 		get_current_schema()
 
 	elif sortColors:
