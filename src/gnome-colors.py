@@ -150,6 +150,7 @@ def check_colors():
 	# check if colors in list are all differents
 	# check for duplicates colors in colors_list
 	from collections import defaultdict
+	duplicates = False
 	_indices = defaultdict(list)
 
 	for index, item in enumerate(accent_colors):
@@ -158,7 +159,12 @@ def check_colors():
 	for key, value in _indices.items():
 		if len(value) > 1:
 			# Do something when them
+			duplicates = True
 			print(f"{colors.reset}{colors.fg.yellow}[w] color:",key,"is defined in position:", value,f"{colors.reset}")
+
+	if not duplicates:
+			print(f"{colors.reset}{colors.fg.yellow}[i] All",nr_of_colors,"colors are different. No duplicates!",f"{colors.reset}")
+
 
 def read_all_files():
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
