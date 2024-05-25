@@ -3,6 +3,12 @@
 # @author: Andrea Antolini (https://github.com/Dasnoopy)
 # @license: GNU General Public License v3.0
 # @link: https://github.com/dasnoopy/MyAwaita-Colors
+#
+# TODO list:
+#
+# add -l  --load file to load colors list from an external txt file
+# (simple list of hexcolor without #, one color per line)
+
 
 import os
 import sys
@@ -50,7 +56,7 @@ class colors:
 
 
 def exit_on_error(message: str):
-	print (f"{colors.reset}{colors.fg.yellow}{message}{colors.reset}")
+	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}{message}{colors.reset}")
 	print('')
 	sys.exit(1)
 
@@ -107,7 +113,7 @@ def checker(a):
 
 # passing arguments and/or define some variabiles
 # Create the parser
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="MyAdwaita-Colors: a python script to set gnome-shell v46 accent color")
 
 parser.add_argument('-c','--check', action='store_true', dest='check_colors', default=False,
 		help='check if there are duplicates HEX colors into the color list')
@@ -134,10 +140,30 @@ config = configparser.ConfigParser()
 # All colors MUST be different and in lower case!
 # lighter version of accent color are generated using colors conversion functions
 
-accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
-                 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
-                 '#68778c','#40a02b','#7287fd','#028fc7','#5661b3','#1560bd',
-                 '#1f75fe','#ff69b4','#ed333b','#de751f','#5e81ac','#8839ef']
+accent_colors = ['#c1392b',
+                 '#cc5500',
+                 '#e2725b',
+                 '#2dc0af',
+                 '#5fa777',
+                 '#367588',
+                 '#483d8b',
+                 '#b57edc',
+                 '#3584e4',
+                 '#60924b',
+                 '#3b7a57',
+                 '#1f9d55',
+                 '#68778c',
+                 '#40a02b',
+                 '#7287fd',
+                 '#028fc7',
+                 '#5661b3',
+                 '#1560bd',
+                 '#1f75fe',
+                 '#ff69b4',
+                 '#ed333b',
+                 '#de751f',
+                 '#5e81ac',
+                 '#8b6be3']
 
 # get nr of colors 
 # for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
@@ -177,10 +203,10 @@ def check_colors():
 		if len(value) > 1:
 			# Do something when them
 			duplicates = True
-			print(f"{colors.reset}{colors.fg.yellow}[w] color:",key,"is defined in position:", value,f"{colors.reset}")
+			print(f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] color:",key,"is defined in position:", value,f"{colors.reset}")
 
 	if not duplicates:
-			print(f"{colors.reset}{colors.fg.lightgreen}[i] All",nr_of_colors,"colors are different. No duplicates!",f"{colors.reset}")
+			print(f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[i] All",nr_of_colors,"colors are different. No duplicates!",f"{colors.reset}")
 
 
 def read_all_files():
@@ -218,6 +244,7 @@ def get_current_schema():
 			break
 		except StopIteration:
 			idx=0
+			#print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Current MyAdwaita-Colors colors schema is not defined in the above list!{colors.reset}")
 			break
 		return idx
 
@@ -244,7 +271,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 	print ('')
 
 def print_info_list(lista: list, righe: int):
-
+	#lista.sort()
 	print (f"{colors.reset}"'Info about all available schema colors:')
 	print ('')
 	# Loop over each row
