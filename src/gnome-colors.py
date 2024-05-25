@@ -9,7 +9,6 @@
 # error management on file not found error
 # get nr_of_colors from list
 
-
 import os
 import sys
 import csv
@@ -54,7 +53,6 @@ class colors:
 		cyan = '\033[46m'
 		lightgrey = '\033[47m'
 
-
 def exit_on_error(message: str):
 	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}{message}{colors.reset}")
 	print('')
@@ -97,90 +95,6 @@ def rgb_2_hls(rgb):
     l_percent = round(l * 100)
     s_percent = round(s * 100)
     return f"({h_degrees:.0f}°, {l_percent:.0f}%, {s_percent:.0f}%)"
-
-# passing arguments and/or define some variabiles
-# Create the parser
-parser = argparse.ArgumentParser(description="MyAdwaita-Colors: a python script to set gnome-shell v46 accent color")
-
-parser.add_argument('-c','--check', action='store_true', dest='check_colors', default=False,
-		help='check if there are duplicates HEX colors into the color list')
-
-parser.add_argument('-i','--info', action='store_true', dest='info_colors', default=False,
-		help='show list of all accent colors with extra info like RGB and HLS values')
-
-parser.add_argument('-f','--file', action='store', dest='load_colors', default=False,
-		help='load accent colors from an external text file that contains a list of HEX colors')
-args = parser.parse_args()
-
-checkColors = args.check_colors
-infoColors = args.info_colors
-hexFname = args.load_colors
-
-# define global variables
-curr_dir = os.getcwd()
-iniFname = 'colors.ini'
-cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
-shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
-svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
-config = configparser.ConfigParser()
-
-
-if hexFname:
-	with open(hexFname, 'r', encoding='utf-8') as file:
-		reader = file.read().splitlines()
-		accent_colors = ["#" + suit for suit in reader]
-else:
-	# All colors MUST be different and in lower case!
-	# lighter version of accent color are generated using colors conversion functions
-	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (or -f not used)! Choose an accent color from hardcoded list...{colors.reset}")
-	accent_colors = ['#c1392b',
-	                 '#cc5500',
-	                 '#e2725b',
-	                 '#2dc0af',
-	                 '#5fa777',
-	                 '#367588',
-	                 '#483d8b',
-	                 '#b57edc',
-	                 '#3584e4',
-	                 '#60924b',
-	                 '#3b7a57',
-	                 '#1f9d55',
-	                 '#68778c',
-	                 '#40a02b',
-	                 '#7287fd',
-	                 '#028fc7',
-	                 '#5661b3',
-	                 '#1560bd',
-	                 '#1f75fe',
-	                 '#ff69b4',
-	                 '#ed333b',
-	                 '#de751f',
-	                 '#5e81ac',
-	                 '#8b6be3']
-
-# get nr of colors 
-# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
-nr_of_colors = len(accent_colors)
-# colors are listed in [nr_of_rows]
-nr_of_rows = int(nr_of_colors / 4)
-
-accent_rgb = list()
-lighter_rgb = list()
-lighter_colors = list()
-lum_factor = 0.1
-
-for i in range (nr_of_colors):
-	# convert each HEX accent color in RGB 
-	accent_rgb.append (hex_to_rgb (accent_colors[i]))
-
-	# create a RGB lighter color from RGB accent color
-	lighter_rgb.append (lighten_color (accent_rgb[i][0], accent_rgb[i][1], accent_rgb[i][2], lum_factor))
-
-	# convert lighter RGB to ligher HEX
-	lighter_colors.append (rgb_to_hex (lighter_rgb[i][0], lighter_rgb[i][1], lighter_rgb[i][2]))
-
-# finally combine the accent colors and their lighter version
-colors_list = list(zip(accent_colors, lighter_colors))
 
 def check_colors():
 	# check if colors in list are all differents
@@ -366,10 +280,7 @@ def apply_theme():
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[i] All done. Enjoy your new accent color for MyAdwaita-Colors...{colors.reset}")
 	print ('')
 
-# main program
 def main():
-	#os.system('clear')
-	
 	# parse arguments
 	if checkColors:
 		print_matrix_with_indices(colors_list, nr_of_rows)
@@ -389,6 +300,72 @@ def main():
 		apply_theme()
 
 if __name__ == '__main__':
+
+	# passing arguments and/or define some variabiles
+	# Create the parser
+	parser = argparse.ArgumentParser(description="MyAdwaita-Colors: a python script to set gnome-shell v46 accent color")
+
+	parser.add_argument('-c','--check', action='store_true', dest='check_colors', default=False,
+			help='check if there are duplicates HEX colors into the color list')
+
+	parser.add_argument('-i','--info', action='store_true', dest='info_colors', default=False,
+			help='show list of all accent colors with extra info like RGB and HLS values')
+
+	parser.add_argument('-f','--file', action='store', dest='load_colors', default=False,
+			help='load accent colors from an external text file that contains a list of HEX colors')
+	args = parser.parse_args()
+
+	checkColors = args.check_colors
+	infoColors = args.info_colors
+	hexFname = args.load_colors
+
+	# define global variables
+	curr_dir = os.getcwd()
+	iniFname = 'colors.ini'
+	cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
+	shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
+	svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
+	config = configparser.ConfigParser()
+
+
+	if hexFname:
+		with open(hexFname, 'r', encoding='utf-8') as file:
+			reader = file.read().splitlines()
+			accent_colors = ["#" + suit for suit in reader]
+	else:
+		# All colors MUST be different and in lower case!
+		# lighter version of accent color are generated using colors conversion functions
+		print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (-f option not used)! Choose an accent color from hardcoded list...{colors.reset}")
+		accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
+						 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
+						 '#68778c','#40a02b','#7287fd','#028fc7','#5661b3','#1560bd',
+						 '#1f75fe','#ff69b4','#ed333b','#de751f','#5e81ac','#8b6be3']
+
+	# get nr of colors 
+	# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
+	nr_of_colors = len(accent_colors)
+	# colors are listed in [nr_of_rows]
+	nr_of_rows = int(nr_of_colors / 4)
+
+	accent_rgb = list()
+	lighter_rgb = list()
+	lighter_colors = list()
+	lum_factor = 0.1
+
+	for i in range (nr_of_colors):
+		# convert each HEX accent color in RGB 
+		accent_rgb.append (hex_to_rgb (accent_colors[i]))
+
+		# create a RGB lighter color from RGB accent color
+		lighter_rgb.append (lighten_color (accent_rgb[i][0], accent_rgb[i][1], accent_rgb[i][2], lum_factor))
+
+		# convert lighter RGB to ligher HEX
+		lighter_colors.append (rgb_to_hex (lighter_rgb[i][0], lighter_rgb[i][1], lighter_rgb[i][2]))
+
+	# finally combine the accent colors and their lighter version
+	colors_list = list(zip(accent_colors, lighter_colors))
+
+	#call main
 	main()
 
 	# exit program
