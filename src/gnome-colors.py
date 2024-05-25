@@ -85,31 +85,18 @@ def lighten_color(r, g, b, factor=0.1):
 def darken_color(r, g, b, factor=0.1):
     return adjust_color_lightness(r, g, b, 1 - factor)
 
-import colorsys
-
 def rgb_2_hls(rgb):
     # Normalizza i valori RGB tra 0 e 1
     r_normalized = rgb[0] / 255.0
     g_normalized = rgb[1] / 255.0
     b_normalized = rgb[2] / 255.0
-    
     # Converte i valori RGB normalizzati in HSL
     h, l, s = colorsys.rgb_to_hls(r_normalized, g_normalized, b_normalized)
-    
     # Moltiplica l'angolo dell'hue per 360 per ottenere il valore in gradi
     h_degrees = round(h * 360)
     l_percent = round(l * 100)
     s_percent = round(s * 100)
-
     return f"({h_degrees:.0f}°, {l_percent:.0f}%, {s_percent:.0f}%)"
-
-# function to convert the input and 
-# check a value or value range
-def checker(a):
-	num = int(a)
-	if num == 0 or num > 24:
-		raise argparse.ArgumentTypeError('Invalid value!')
-	return num
 
 # passing arguments and/or define some variabiles
 # Create the parser
@@ -121,17 +108,12 @@ parser.add_argument('-c','--check', action='store_true', dest='check_colors', de
 parser.add_argument('-i','--info', action='store_true', dest='info_colors', default=False,
 		help='show list of all accent colors with extra info like RGB and HLS values')
 
-parser.add_argument('-s','--set', action='store', dest='set_colors',type=checker,
-		help='set an accent color from list')
-
 parser.add_argument('-f','--file', action='store', dest='load_colors', default=False,
 		help='load accent colors from an external text file that contains a list of HEX colors')
-
-
 args = parser.parse_args()
+
 checkColors = args.check_colors
 infoColors = args.info_colors
-setColors = args.set_colors
 hexFname = args.load_colors
 
 # define global variables
@@ -141,7 +123,7 @@ cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
 shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
-accent_colors = []
+
 
 if hexFname:
 	with open(hexFname, 'r', encoding='utf-8') as file:
@@ -150,8 +132,7 @@ if hexFname:
 else:
 	# All colors MUST be different and in lower case!
 	# lighter version of accent color are generated using colors conversion functions
-	print('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found! Apply color from hardcoded list{colors.reset}")
+	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (or -f not used)! Choose an accent color from hardcoded list...{colors.reset}")
 	accent_colors = ['#c1392b',
 	                 '#cc5500',
 	                 '#e2725b',
@@ -249,10 +230,9 @@ def get_current_schema():
 			rgb2 = hex_to_rgb(search_secondary_color)
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			#
-			if not setColors:
-				print (f"{colors.reset}MyAdwaita-Colors is using accent color nr. {idx:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
-				print ('')
+			
+			print (f"{colors.reset}MyAdwaita-Colors is using accent color nr. {idx:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+			print ('')
 			break
 		except StopIteration:
 			idx=0
@@ -260,11 +240,6 @@ def get_current_schema():
 		return idx
 
 def print_matrix_with_indices(lista: list, righe: int):
-
-	# # nr. of row can't be upper of nr_of_colors
-	# if righe > nr_of_colors:
-	# 	righe = nr_of_colors
-
 	print (f"{colors.reset}"'List of available accent colors:')
 	print ('')
 	# Loop over each row
@@ -277,7 +252,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 			rgb2 = hex_to_rgb(lista[index][1])
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
+			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
 		print('')
 	print ('')
 
@@ -293,15 +268,12 @@ def print_info_list(lista: list, righe: int):
 			# Print elements
 			rgb1 = hex_to_rgb(lista[index][0])
 			rgb2 = hex_to_rgb(lista[index][1])
-
-			
 			hls1 = rgb_2_hls(rgb1)
 			hls2 = rgb_2_hls(rgb2)
-
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			#print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1):<15}" + ', ' + f"{str(rgb2):>15} │" ,f"{hls1:<18}" + ',' + f"{hls2:>18}" +  ' │', end='')
-			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
+			#print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1):<15}" + ', ' + f"{str(rgb2):>15} │" ,f"{hls1:<18}" + ',' + f"{hls2:>18}" +  ' │', end='')
+			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
 	print ('')
@@ -311,17 +283,13 @@ def interactive_color_selection():
 	global replace_secondary_color
 	global replace_rgba_color
 
-	# clean screen and welcome message
-	if not setColors:
-		x = ''
-		while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
-			x = input(f'Choose a new accent accent color (1 to {nr_of_colors}): ')
-		reply = confirm_prompt("Are you sure to continue?")
-		if reply == False:
+	x = ''
+	while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
+		x = input(f'Choose a new accent accent color (1 to {nr_of_colors}): ')
+	reply = confirm_prompt("Are you sure to continue?")
+	if reply == False:
 			exit_on_error('[I] exit without do any change!')
-	else:
-		x = setColors
-		
+
 	# set new colors
 	replace_primary_color = (colors_list[int(x) - 1])[0]
 	replace_secondary_color  = (colors_list[int(x) - 1])[1]
@@ -414,8 +382,7 @@ def main():
 
 	else:
 		read_all_files()
-		if not setColors:
-			print_matrix_with_indices(colors_list, nr_of_rows)
+		print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
 		interactive_color_selection()
 		write_all_files()
