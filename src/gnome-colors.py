@@ -9,6 +9,7 @@ import sys
 import csv
 import argparse
 import configparser
+import colorsys
 from colorsys import rgb_to_hls, hls_to_rgb
 
 class colors:
@@ -78,6 +79,24 @@ def lighten_color(r, g, b, factor=0.1):
 def darken_color(r, g, b, factor=0.1):
     return adjust_color_lightness(r, g, b, 1 - factor)
 
+import colorsys
+
+def rgb_2_hls(rgb):
+    # Normalizza i valori RGB tra 0 e 1
+    r_normalized = rgb[0] / 255.0
+    g_normalized = rgb[1] / 255.0
+    b_normalized = rgb[2] / 255.0
+    
+    # Converte i valori RGB normalizzati in HSL
+    h, l, s = colorsys.rgb_to_hls(r_normalized, g_normalized, b_normalized)
+    
+    # Moltiplica l'angolo dell'hue per 360 per ottenere il valore in gradi
+    h_degrees = round(h * 360)
+    l_percent = round(l * 100)
+    s_percent = round(s * 100)
+
+    return f"({h_degrees:.0f}°, {l_percent:.0f}%, {s_percent:.0f}%)"
+
 # function to convert the input and 
 # check a value or value range
 def checker(a):
@@ -90,21 +109,19 @@ def checker(a):
 # Create the parser
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c','--check-colors', action='store_true', dest='check_colors', default=False,
+parser.add_argument('-c','--check', action='store_true', dest='check_colors', default=False,
 		help='check if there are duplicates HEX colors into the color list')
 
-parser.add_argument('-l','--list-colors', action='store_true', dest='list_colors', default=False,
+parser.add_argument('-i','--info', action='store_true', dest='info_colors', default=False,
 		help='show list of all accent colors with extra info like HEX and RGB values')
 
-parser.add_argument('-a','--apply-colors', action='store', dest='apply_colors',type=checker,
-		help='apply a colors schema from 1 to 24 directly')
+parser.add_argument('-s','--set', action='store', dest='set_colors',type=checker,
+		help='set a colors schema from 1 to 24 directly')
 
 args = parser.parse_args()
-
 checkColors = args.check_colors
-listColors = args.list_colors
-applyColors = args.apply_colors
-
+infoColors = args.info_colors
+setColors = args.set_colors
 
 # define global variables
 curr_dir = os.getcwd()
@@ -117,10 +134,10 @@ config = configparser.ConfigParser()
 # All colors MUST be different and in lower case!
 # lighter version of accent color are generated using colors conversion functions
 
-accent_colors = ['#c1392b','#cc5500','#e2725b','#38a89d','#5fa777','#367588',
+accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
                  '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
-                 '#68778c','#3eb489','#856088','#028fc7','#5661b3','#1560bd',
-                 '#1f75fe','#ff69b4','#d70751','#de751f','#5e81ac','#384c81']
+                 '#68778c','#40a02b','#7287fd','#028fc7','#5661b3','#1560bd',
+                 '#1f75fe','#ff69b4','#ed333b','#de751f','#5e81ac','#8839ef']
 
 # get nr of colors 
 # for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
@@ -163,7 +180,7 @@ def check_colors():
 			print(f"{colors.reset}{colors.fg.yellow}[w] color:",key,"is defined in position:", value,f"{colors.reset}")
 
 	if not duplicates:
-			print(f"{colors.reset}{colors.fg.yellow}[i] All",nr_of_colors,"colors are different. No duplicates!",f"{colors.reset}")
+			print(f"{colors.reset}{colors.fg.lightgreen}[i] All",nr_of_colors,"colors are different. No duplicates!",f"{colors.reset}")
 
 
 def read_all_files():
@@ -195,7 +212,7 @@ def get_current_schema():
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
 			#
-			if not applyColors:
+			if not setColors:
 				print (f"{colors.reset}MyAdwaita-Colors is using schema nr. {idx:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
 			break
@@ -238,9 +255,15 @@ def print_info_list(lista: list, righe: int):
 			# Print elements
 			rgb1 = hex_to_rgb(lista[index][0])
 			rgb2 = hex_to_rgb(lista[index][1])
+
+			
+			hls1 = rgb_2_hls(rgb1)
+			hls2 = rgb_2_hls(rgb2)
+
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1) : <15}" + ', ' + f"{str(rgb2) : <15}" + ' │ ', end='')
+			#print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1):<15}" + ', ' + f"{str(rgb2):>15} │" ,f"{hls1:<18}" + ',' + f"{hls2:>18}" +  ' │', end='')
+			print (f" {colors.reset}{index + 1:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
 	print ('')
@@ -251,7 +274,7 @@ def interactive_color_selection():
 	global replace_rgba_color
 
 	# clean screen and welcome message
-	if not applyColors:
+	if not setColors:
 		x = ''
 		while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
 			x = input(f'Choose a new accent schema colors (1 to {nr_of_colors}): ')
@@ -259,7 +282,7 @@ def interactive_color_selection():
 		if reply == False:
 			exit_on_error('[I] exit without do any change!')
 	else:
-		x = applyColors
+		x = setColors
 		
 	# set new colors
 	replace_primary_color = (colors_list[int(x) - 1])[0]
@@ -334,7 +357,7 @@ def apply_theme():
 	os.system("dbus-send --session --dest=org.gnome.Shell --print-reply --type=method_call /org/gnome/Shell org.gnome.Shell.Eval string:'Main.loadTheme(); ' > /dev/null")
 	# final greetings
 	#print ('')
-	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[i] All done. Enjoy your new gnome-shell accent color...{colors.reset}")
+	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[i] All done. Enjoy your new accent color for MyAdwaita-Colors...{colors.reset}")
 	print ('')
 
 # main program
@@ -346,14 +369,14 @@ def main():
 		print_matrix_with_indices(colors_list, nr_of_rows)
 		check_colors()
 
-	elif listColors:
+	elif infoColors:
 		read_all_files()
 		print_info_list(colors_list, nr_of_colors)
 		get_current_schema()
 
 	else:
 		read_all_files()
-		if not applyColors:
+		if not setColors:
 			print_matrix_with_indices(colors_list, nr_of_rows)
 		get_current_schema()
 		interactive_color_selection()
