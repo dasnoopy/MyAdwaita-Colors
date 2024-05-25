@@ -6,8 +6,8 @@
 #
 # TODO list:
 #
-# add -l  --load file to load colors list from an external txt file
-# (simple list of hexcolor without #, one color per line)
+# error management on file not found error
+# get nr_of_colors from list
 
 
 import os
@@ -119,15 +119,20 @@ parser.add_argument('-c','--check', action='store_true', dest='check_colors', de
 		help='check if there are duplicates HEX colors into the color list')
 
 parser.add_argument('-i','--info', action='store_true', dest='info_colors', default=False,
-		help='show list of all accent colors with extra info like HEX and RGB values')
+		help='show list of all accent colors with extra info like RGB and HLS values')
 
 parser.add_argument('-s','--set', action='store', dest='set_colors',type=checker,
-		help='set a colors schema from 1 to 24 directly')
+		help='set an accent color from list')
+
+parser.add_argument('-f','--file', action='store', dest='load_colors', default=False,
+		help='load accent colors from an external text file that contains a list of HEX colors')
+
 
 args = parser.parse_args()
 checkColors = args.check_colors
 infoColors = args.info_colors
 setColors = args.set_colors
+hexFname = args.load_colors
 
 # define global variables
 curr_dir = os.getcwd()
@@ -136,34 +141,41 @@ cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
 shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
 svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 config = configparser.ConfigParser()
+accent_colors = []
 
-# All colors MUST be different and in lower case!
-# lighter version of accent color are generated using colors conversion functions
-
-accent_colors = ['#c1392b',
-                 '#cc5500',
-                 '#e2725b',
-                 '#2dc0af',
-                 '#5fa777',
-                 '#367588',
-                 '#483d8b',
-                 '#b57edc',
-                 '#3584e4',
-                 '#60924b',
-                 '#3b7a57',
-                 '#1f9d55',
-                 '#68778c',
-                 '#40a02b',
-                 '#7287fd',
-                 '#028fc7',
-                 '#5661b3',
-                 '#1560bd',
-                 '#1f75fe',
-                 '#ff69b4',
-                 '#ed333b',
-                 '#de751f',
-                 '#5e81ac',
-                 '#8b6be3']
+if hexFname:
+	with open(hexFname, 'r', encoding='utf-8') as file:
+		reader = file.read().splitlines()
+		accent_colors = ["#" + suit for suit in reader]
+else:
+	# All colors MUST be different and in lower case!
+	# lighter version of accent color are generated using colors conversion functions
+	print('')
+	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found! Apply color from hardcoded list{colors.reset}")
+	accent_colors = ['#c1392b',
+	                 '#cc5500',
+	                 '#e2725b',
+	                 '#2dc0af',
+	                 '#5fa777',
+	                 '#367588',
+	                 '#483d8b',
+	                 '#b57edc',
+	                 '#3584e4',
+	                 '#60924b',
+	                 '#3b7a57',
+	                 '#1f9d55',
+	                 '#68778c',
+	                 '#40a02b',
+	                 '#7287fd',
+	                 '#028fc7',
+	                 '#5661b3',
+	                 '#1560bd',
+	                 '#1f75fe',
+	                 '#ff69b4',
+	                 '#ed333b',
+	                 '#de751f',
+	                 '#5e81ac',
+	                 '#8b6be3']
 
 # get nr of colors 
 # for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
@@ -227,8 +239,8 @@ def read_all_files():
 	search_rgba_color = config['COLORS']['rgbaprimary'] 
 
 def get_current_schema():
-	#index of current color schema
-	#if schema not found between built-in presets , nothing is displayed!
+	#index of current accent color
+	#if accent color is not found into built-in presets , nothing is displayed!
 	while True:
 		try:
 			idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
@@ -239,12 +251,11 @@ def get_current_schema():
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
 			#
 			if not setColors:
-				print (f"{colors.reset}MyAdwaita-Colors is using schema nr. {idx:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+				print (f"{colors.reset}MyAdwaita-Colors is using accent color nr. {idx:02d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 				print ('')
 			break
 		except StopIteration:
 			idx=0
-			#print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Current MyAdwaita-Colors colors schema is not defined in the above list!{colors.reset}")
 			break
 		return idx
 
@@ -254,7 +265,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 	# if righe > nr_of_colors:
 	# 	righe = nr_of_colors
 
-	print (f"{colors.reset}"'List of available schema colors:')
+	print (f"{colors.reset}"'List of available accent colors:')
 	print ('')
 	# Loop over each row
 	for row in range(righe):
@@ -272,7 +283,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 
 def print_info_list(lista: list, righe: int):
 	#lista.sort()
-	print (f"{colors.reset}"'Info about all available schema colors:')
+	print (f"{colors.reset}"'Info about all available accent colors:')
 	print ('')
 	# Loop over each row
 	for row in range(righe):
@@ -304,7 +315,7 @@ def interactive_color_selection():
 	if not setColors:
 		x = ''
 		while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
-			x = input(f'Choose a new accent schema colors (1 to {nr_of_colors}): ')
+			x = input(f'Choose a new accent accent color (1 to {nr_of_colors}): ')
 		reply = confirm_prompt("Are you sure to continue?")
 		if reply == False:
 			exit_on_error('[I] exit without do any change!')
@@ -315,7 +326,7 @@ def interactive_color_selection():
 	replace_primary_color = (colors_list[int(x) - 1])[0]
 	replace_secondary_color  = (colors_list[int(x) - 1])[1]
 
-	# some test before save and apply new color schema 
+	# some test before save and apply new color accent color: 
 	if replace_primary_color == search_secondary_color:
 		exit_on_error('[w] unable to proceed: new lighter color is equal to current darker color!')
 	elif replace_secondary_color == search_primary_color:
@@ -323,7 +334,7 @@ def interactive_color_selection():
 	elif replace_primary_color == replace_secondary_color:
 		exit_on_error('[w] unable to proceed: new lighter and darker color are equal!')
 	elif replace_primary_color == search_primary_color and replace_secondary_color == search_secondary_color:
-		exit_on_error('[w] nothing to change : active and choosen schema colors are equal!')
+		exit_on_error('[w] nothing to change : active and choosen accent colors are equal!')
 
 	# get new rgba color from ligher color
 	replace_rgba_color = 'rgba' + str(hex_to_rgb(replace_primary_color)).rstrip(')') +','
@@ -410,8 +421,8 @@ def main():
 		write_all_files()
 		apply_theme()
 
-	# exit program
-	sys.exit(0)
-
 if __name__ == '__main__':
 	main()
+
+	# exit program
+	sys.exit(0)
