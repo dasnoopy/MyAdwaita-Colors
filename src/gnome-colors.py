@@ -280,6 +280,12 @@ def apply_theme():
 	print (f"{colors.reset}{colors.bold}{colors.fg.lightgreen}[i] All done. Enjoy your new accent color for MyAdwaita-Colors...{colors.reset}")
 	print ('')
 
+def print_colors_wall():
+	for r in range(0,255,32):
+		for g in range(0,255,32):
+			for b in range(0,255,32):
+				print ('\033[48;2;' + str(r) + ';' + str(g) + ';' + str(b) + 'm  ',end='')
+
 def main():
 	# parse arguments
 	if checkColors:
@@ -291,6 +297,9 @@ def main():
 		print_info_list(colors_list, nr_of_colors)
 		get_current_schema()
 
+	elif testColors:
+		print_colors_wall()
+
 	else:
 		read_all_files()
 		print_matrix_with_indices(colors_list, nr_of_rows)
@@ -300,23 +309,27 @@ def main():
 		apply_theme()
 
 if __name__ == '__main__':
-
 	# passing arguments and/or define some variabiles
 	# Create the parser
 	parser = argparse.ArgumentParser(description="MyAdwaita-Colors: a python script to set gnome-shell v46 accent color")
 
 	parser.add_argument('-c','--check', action='store_true', dest='check_colors', default=False,
-			help='check if there are duplicates HEX colors into the color list')
+		help='check if there are duplicates HEX colors into the color list')
 
 	parser.add_argument('-i','--info', action='store_true', dest='info_colors', default=False,
-			help='show list of all accent colors with extra info like RGB and HLS values')
+		help='show list of all accent colors with extra info like RGB and HLS values')
+
+	parser.add_argument('-t','--test', action='store_true', dest='test_colors', default=False,
+		help='print all HEX colors to test your true-color terminal capability.')
 
 	parser.add_argument('-f','--file', action='store', dest='load_colors', default=False,
-			help='load accent colors from an external text file that contains a list of HEX colors')
+		help='load accent colors from an external text file that contains a list of HEX colors')
+
 	args = parser.parse_args()
 
 	checkColors = args.check_colors
 	infoColors = args.info_colors
+	testColors = args.test_colors
 	hexFname = args.load_colors
 
 	# define global variables
@@ -335,7 +348,7 @@ if __name__ == '__main__':
 	else:
 		# All colors MUST be different and in lower case!
 		# lighter version of accent color are generated using colors conversion functions
-		print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (-f option not used)! Choose an accent color from hardcoded list...{colors.reset}")
+		# print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (-f option not used)! Choose an accent color from hardcoded list...{colors.reset}")
 		accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
 						 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
 						 '#68778c','#40a02b','#7287fd','#028fc7','#5661b3','#1560bd',
@@ -369,4 +382,5 @@ if __name__ == '__main__':
 	main()
 
 	# exit program
+	print (f"{colors.reset}")
 	sys.exit(0)
