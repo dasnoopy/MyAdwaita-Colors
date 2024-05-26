@@ -168,7 +168,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
 			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m', end='')
 		print('')
-	print ('')
+	print (f"{colors.reset}")
 
 def print_info_list(lista: list, righe: int):
 	#lista.sort()
@@ -190,7 +190,7 @@ def print_info_list(lista: list, righe: int):
 			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
-	print ('')
+	print (f"{colors.reset}")
 
 def interactive_color_selection():
 	global replace_primary_color
@@ -382,5 +382,4 @@ if __name__ == '__main__':
 	main()
 
 	# exit program
-	print (f"{colors.reset}")
 	sys.exit(0)
