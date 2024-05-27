@@ -135,21 +135,21 @@ def read_all_files():
 
 def get_current_schema():
 	#index of current accent color
-	#if accent color is not found into built-in presets , nothing is displayed!
+	# convert hex color to RGB just to print colors on terminal
+	rgb1 = hex_to_rgb(search_primary_color)
+	rgb2 = hex_to_rgb(search_secondary_color)
+	R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
+	R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
 	while True:
 		try:
 			idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
-			# convert hex color to RGB just to print colors on terminal
-			rgb1 = hex_to_rgb(search_primary_color)
-			rgb2 = hex_to_rgb(search_secondary_color)
-			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
-			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			
 			print (f"{colors.reset}MyAdwaita-Colors is using accent color nr. {idx:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 			print ('')
 			break
 		except StopIteration:
 			idx=0
+			print (f"{colors.reset}MyAdwaita-Colors is using this accent color: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+			print ('')			
 			break
 		return idx
 
@@ -352,7 +352,7 @@ if __name__ == '__main__':
 		accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
 						 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
 						 '#68778c','#40a02b','#7287fd','#028fc7','#5661b3','#1560bd',
-						 '#1f75fe','#ff69b4','#ed333b','#de751f','#5e81ac','#8b6be3']
+						 '#1f75fe','#ff69b4','#ed333b','#da5a3a','#5e81ac','#8b6be3']
 
 	# get nr of colors 
 	# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
