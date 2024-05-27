@@ -35,7 +35,7 @@
 
 3) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
 4) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src`
-5) choose a color schema between 24 preset (or modify the colors in python script to match your needs..)
+5) choose a color schema between 24 preset (or load from an external file containing a list of HEX colors using  the -f option )
 6) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
 7) Enjoy new colors!
 

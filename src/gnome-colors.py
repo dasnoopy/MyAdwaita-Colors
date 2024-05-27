@@ -186,8 +186,8 @@ def print_info_list(lista: list, righe: int):
 			hls2 = rgb_2_hls(rgb2)
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			#print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' , ' + lista[index][1] + ' │ ' + f"{str(rgb1):<15}" + ', ' + f"{str(rgb2):>15} │" ,f"{hls1:<18}" + ',' + f"{hls2:>18}" +  ' │', end='')
-			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
+			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ ' + f"{str(rgb1): <15}" + ', ' + f"{str(rgb2): <15} │" ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" +  ' │', end='')
+			#print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
 	print (f"{colors.reset}")
@@ -358,7 +358,8 @@ if __name__ == '__main__':
 	# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
 	nr_of_colors = len(accent_colors)
 	# colors are listed in [nr_of_rows]
-	nr_of_rows = int(nr_of_colors / 4)
+	nr_of_rows = round(nr_of_colors / 4)
+	if nr_of_rows == 0: nr_of_rows =1
 
 	accent_rgb = list()
 	lighter_rgb = list()
@@ -377,7 +378,6 @@ if __name__ == '__main__':
 
 	# finally combine the accent colors and their lighter version
 	colors_list = list(zip(accent_colors, lighter_colors))
-
 	#call main
 	main()
 
