@@ -1,7 +1,7 @@
 # MyAdwaita-Colors
 
 - A gnome-shell theme ( **gnome v46 only** ) based on vanilla gnome-shell theme: it use nord theme colors schema for background and, mainly, less rounded borders and less padding.
-- Provide also a python script to set an accent color (from 24 preset) to gnome-shell and gtk3-gtk4 themes 
+- Provide also a python script to set an accent color (from 24 preset or from external palette file with a list of HEX colors) to gnome-shell and gtk3-gtk4 themes 
 - It's a dark only gnome-shell theme. 
 
 **Disclaimer:**
@@ -34,10 +34,25 @@
   -   it will import some colors definition from file colors.css that will be create by the script itself
 
 3) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
-4) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src`
+4) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src` (see below for a description of all script options)
 5) choose a color schema between 24 preset (or load from an external file containing a list of HEX colors using  the -f option )
 6) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
 7) Enjoy new colors!
+
+**scritp options:** 
+```
+usage: gnome-colors.py [-h] [-c] [-i] [-t] [-f LOAD_COLORS]
+
+MyAdwaita-Colors: a python script to set gnome-shell v46 accent color
+
+options:
+  -h, --help            show this help message and exit
+  -c, --check           check if there are duplicates HEX colors into the color list provided
+  -i, --info            show list of all accent colors with extra info like RGB and HLS values
+  -t, --test            show some HEX colors to test true-color terminal capability.
+  -f LOAD_COLORS, --file LOAD_COLORS
+                        load accent colors from an external text file that contains a list of HEX colors
+```
 
 **Other useful extension related to colors:**
 - https://github.com/tuberry/color-picker (gnome-extension to pick color)
