@@ -173,10 +173,11 @@ def print_matrix_with_indices(lista: list, righe: int):
 def print_info_list(lista: list, righe: int):
 	#lista.sort()
 	print (f"{colors.reset}"'Info about all available accent colors:')
-	print ('')
+	# print header
+	print ('╭' +'─'*99 +'╮')
 	# Loop over each row
 	for row in range(righe):
-		print ('┃',end='')
+		print ('│',end='')
 	# Loop over each column in the current row
 		for index in range(row, nr_of_colors, righe):
 			# Print elements
@@ -186,11 +187,12 @@ def print_info_list(lista: list, righe: int):
 			hls2 = rgb_2_hls(rgb2)
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ ' + f"{str(rgb1): <15}" + ', ' + f"{str(rgb2): <15} │" ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" +  ' │', end='')
+			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ ' + f"{str(rgb1): <15}" + ', ' + f"{str(rgb2): <15} │" ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" + ' │', end='')
 			#print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
-	print (f"{colors.reset}")
+	print (f"{colors.reset}",end='')
+	print ('╰' +'─'*99 +'╯')
 
 def interactive_color_selection():
 	global replace_primary_color
@@ -285,7 +287,8 @@ def print_colors_wall():
 		for g in range(0,255,32):
 			for b in range(0,255,32):
 				print ('\033[48;2;' + str(r) + ';' + str(g) + ';' + str(b) + 'm  ',end='')
-
+	print (f"{colors.reset}")
+	
 def main():
 	# parse arguments
 	if checkColors:
@@ -351,7 +354,7 @@ if __name__ == '__main__':
 		# print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (-f option not used)! Choose an accent color from hardcoded list...{colors.reset}")
 		accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
 						 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
-						 '#68778c','#40a02b','#7287fd','#028fc7','#5661b3','#1560bd',
+						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#1560bd',
 						 '#1f75fe','#ff69b4','#ed333b','#da5a3a','#5e81ac','#8b6be3']
 
 	# get nr of colors 
