@@ -34,7 +34,8 @@ class colors:
 		blue = '\033[34m'
 		purple = '\033[35m'
 		cyan = '\033[36m'
-		lightgrey = '\033[37m'
+		white = '\033[37m'
+
 		darkgrey = '\033[90m'
 		lightred = '\033[91m'
 		lightgreen = '\033[92m'
@@ -42,6 +43,22 @@ class colors:
 		lightblue = '\033[94m'
 		pink = '\033[95m'
 		lightcyan = '\033[96m'
+
+		bold_red  ='\033[1;31m'
+		bold_green='\033[1;32m'
+		bold_yellow='\033[1;33m'
+		bold_blue='\033[1;34m'
+		bold_purple='\033[1;35m'
+		bold_cyan='\033[1;36m'
+		bold_white='\033[1;37m'
+
+		italic_bold_red='\033[1;3;31m'
+		italic_bold_green='\033[1;3;32m'
+		italic_bold_yellow='\033[1;3;33m'
+		italic_bold_blue='\033[1;3;34m'
+		italic_bold_purple='\033[1;3;35m'
+		italic_bold_cyan='\033[1;3;36m'
+		italic_bold_white='\033[1;3;37m'
 
 	class bg:
 		black = '\033[40m'
@@ -54,7 +71,7 @@ class colors:
 		lightgrey = '\033[47m'
 
 def exit_on_error(message: str):
-	print (f"{colors.reset}{colors.bold}{colors.fg.yellow}{message}{colors.reset}")
+	print (f"{colors.reset}{colors.bold}{colors.fg.italic_bold_yellow}{message}{colors.reset}")
 	print('')
 	sys.exit(1)
 
@@ -352,17 +369,17 @@ if __name__ == '__main__':
 		# All colors MUST be different and in lower case!
 		# lighter version of accent color are generated using colors conversion functions
 		# print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (-f option not used)! Choose an accent color from hardcoded list...{colors.reset}")
-		accent_colors = ['#c1392b','#cc5500','#e2725b','#2dc0af','#5fa777','#367588',
-						 '#483d8b','#b57edc','#3584e4','#60924b','#3b7a57','#1f9d55',
+		accent_colors = ['#bb0f49','#da5a3a','#fcb600','#32b199','#259f2b','#367588',
+						 '#483d8b','#b57edc','#3584e4','#195d54','#3b7a57','#1f9d55',
 						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#1560bd',
-						 '#1f75fe','#ff69b4','#ed333b','#da5a3a','#5e81ac','#8b6be3']
+						 '#1f75fe','#ff69b4','#ed333b','#4e78d9','#74a4b4','#8b6be3']
 
 	# get nr of colors 
 	# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
 	nr_of_colors = len(accent_colors)
 	# colors are listed in [nr_of_rows]
 	nr_of_rows = round(nr_of_colors / 4)
-	if nr_of_rows == 0: nr_of_rows =1
+	if nr_of_rows == 0: nr_of_rows = 1
 
 	accent_rgb = list()
 	lighter_rgb = list()

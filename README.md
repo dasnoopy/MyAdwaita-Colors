@@ -31,7 +31,7 @@
 2) create (if not exist) folder `/home/your_account/.local/share/themes` and copy MyAdwaita-Colors folder into it
 3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css`, adding this line: 
   -   `@import 'colors.css';`
-  -   it will import some colors definition from file colors.css that will be create by the script itself
+  -   it will import some colors definition from file `colors.css` that will be create by the script itself always into `/home/your_account/.config/gtk-4.0/` folder.
 
 3) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
 4) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src` (see below for a description of all script options)
