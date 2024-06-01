@@ -29,15 +29,15 @@
 **How to use it:** 
 1) git clone MyAdwaita-Colors repo:	`# git clone https://github.com/dasnoopy/MyAdwaita-Colors`
 2) create (if not exist) folder `/home/your_account/.local/share/themes` and copy MyAdwaita-Colors folder into it
-3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css`, adding this line: 
-  -   `@import 'colors.css';`
-  -   it will import some colors definition from file `colors.css` that will be create by the script itself always into `/home/your_account/.config/gtk-4.0/` folder.
-
-3) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
-4) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src` (see below for a description of all script options)
-5) choose a color schema between 24 preset (or load from an external file containing a list of HEX colors using  the -f option )
-6) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
-7) Enjoy new colors!
+3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css` and `/home/your_account/.config/gtk-3.0/gtk.css` , adding at beginning, this line: 
+  - `@import 'colors.css';`
+  - it will import some colors definition from file `colors.css` that will be create by the script itself always into `/home/your_account/.config/gtk-4.0/` folder.
+  - make a symbolic : ln -s `/home/your_account/.config/gtk-4.0/color.css /home/your_account/.config/gtk-3.0/color.css` for gtk3 apps
+4) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
+5) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src` (see below for a description of all script options)
+6) choose a color schema between 24 preset (or load from an external file containing a list of HEX colors using  the -f option )
+7) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
+8) Enjoy new colors!
 
 **scritp options:** 
 ```

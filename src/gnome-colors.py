@@ -136,7 +136,7 @@ def check_colors():
 def read_all_files():
 # if ini file is missing, create it with some default colors(from gnome HIG palette)
 	if not os.path.exists(iniFname):
-		config['COLORS'] = {'hexprimary': '#3584e4', 'hexsecondary': '#478fe6', 'rgbaprimary': 'rgba(53, 132, 228,'}
+		config['COLORS'] = {'hexprimary': '#3584e4', 'hexsecondary': '#4d93e7', 'rgbaprimary': 'rgba(53, 132, 228,'}
 		config.write(open(iniFname, 'w', encoding='utf-8'))
 		
 	# Read ini file...
@@ -165,7 +165,7 @@ def get_current_schema():
 			break
 		except StopIteration:
 			idx=0
-			print (f"{colors.reset}MyAdwaita-Colors is using this accent color: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+			print (f"{colors.reset}MyAdwaita-Colors is using these color: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 			print ('')			
 			break
 		return idx
@@ -221,7 +221,7 @@ def interactive_color_selection():
 		x = input(f'Choose a new accent accent color (1 to {nr_of_colors}): ')
 	reply = confirm_prompt("Are you sure to continue?")
 	if reply == False:
-			exit_on_error('[I] exit without do any change!')
+			exit_on_error('[i] exit without do any change!')
 
 	# set new colors
 	replace_primary_color = (colors_list[int(x) - 1])[0]
@@ -372,7 +372,7 @@ if __name__ == '__main__':
 		accent_colors = ['#bb0f49','#da5a3a','#fcb600','#32b199','#259f2b','#367588',
 						 '#483d8b','#b57edc','#3584e4','#195d54','#3b7a57','#1f9d55',
 						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#1560bd',
-						 '#1f75fe','#ff69b4','#ed333b','#4e78d9','#74a4b4','#8b6be3']
+						 '#1f75fe','#ff69b4','#ed333b','#4e78d9','#74a4b1','#8b6be3']
 
 	# get nr of colors 
 	# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
@@ -398,8 +398,8 @@ if __name__ == '__main__':
 
 	# finally combine the accent colors and their lighter version
 	colors_list = list(zip(accent_colors, lighter_colors))
+	
 	#call main
 	main()
-
 	# exit program
 	sys.exit(0)
