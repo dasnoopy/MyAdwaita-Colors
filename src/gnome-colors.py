@@ -7,7 +7,7 @@
 # TODO list:
 #
 # error management on file not found error
-# get nr_of_colors from list
+
 
 import os
 import sys
@@ -160,18 +160,18 @@ def get_current_schema():
 	while True:
 		try:
 			idx=int ((next(i for i, w in enumerate(colors_list) if search_primary_color in w and search_secondary_color in w) + 1))
-			print (f"{colors.reset}MyAdwaita-Colors is using accent color nr. {idx:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+			print (f"{colors.reset}:: MyAdwaita-Colors is using accent color nr. {idx:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 			print ('')
 			break
 		except StopIteration:
 			idx=0
-			print (f"{colors.reset}MyAdwaita-Colors is using these color: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
+			print (f"{colors.reset}:: MyAdwaita-Colors is using these color: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + search_primary_color + ' \033[0m' '\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + search_secondary_color + ' \033[0m')
 			print ('')			
 			break
 		return idx
 
 def print_matrix_with_indices(lista: list, righe: int):
-	print (f"{colors.reset}"'List of available accent colors:')
+	print (f"{colors.reset}"':: Showing all available accent colors:')
 	print ('')
 	# Loop over each row
 	for row in range(righe):
@@ -189,7 +189,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 
 def print_info_list(lista: list, righe: int):
 	#lista.sort()
-	print (f"{colors.reset}"'Info about all available accent colors:')
+	print (f"{colors.reset}"':: Info about all available accent colors:')
 	# print header
 	print ('╭' +'─'*99 +'╮')
 	# Loop over each row
@@ -218,8 +218,8 @@ def interactive_color_selection():
 
 	x = ''
 	while not (x.isdigit() and int(x) in range(1, nr_of_colors + 1)):
-		x = input(f'Choose a new accent accent color (1 to {nr_of_colors}): ')
-	reply = confirm_prompt("Are you sure to continue?")
+		x = input(f':: Choose a new accent accent color (1 to {nr_of_colors}): ')
+	reply = confirm_prompt(":: Are you sure to continue?")
 	if reply == False:
 			exit_on_error('[i] exit without do any change!')
 
@@ -368,7 +368,6 @@ if __name__ == '__main__':
 	else:
 		# All colors MUST be different and in lower case!
 		# lighter version of accent color are generated using colors conversion functions
-		# print (f"{colors.reset}{colors.bold}{colors.fg.yellow}[w] Accent colors file not found (-f option not used)! Choose an accent color from hardcoded list...{colors.reset}")
 		accent_colors = ['#bb0f49','#da5a3a','#fcb600','#32b199','#259f2b','#367588',
 						 '#483d8b','#b57edc','#3584e4','#195d54','#3b7a57','#1f9d55',
 						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#1560bd',
