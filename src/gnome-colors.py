@@ -83,7 +83,7 @@ def confirm_prompt(question: str) -> bool:
 
 def hex_to_rgb(hex):
 	hex = hex.lstrip('#')
-	return tuple(int(hex[i:i+2], 16)  for i in (0, 2, 4))
+	return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
 
 def rgb_to_hex(r, g, b):
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
@@ -111,7 +111,7 @@ def rgb_2_hls(rgb):
     h_degrees = round(h * 360)
     l_percent = round(l * 100)
     s_percent = round(s * 100)
-    return f"({h_degrees:.0f}°, {l_percent:.0f}%, {s_percent:.0f}%)"
+    return f"({h_degrees:>3.0f}°,{l_percent:>3.0f}%,{s_percent:>3.0f}%)"
 
 def check_colors():
 	# check if colors in list are all differents
@@ -191,10 +191,11 @@ def print_info_list(lista: list, righe: int):
 	#lista.sort()
 	print (f"{colors.reset}"':: Info about all available accent colors:')
 	# print header
-	print ('╭' +'─'*99 +'╮')
+	#print ('╭' +'─'*99 +'╮')
+	print('')
 	# Loop over each row
 	for row in range(righe):
-		print ('│',end='')
+		print ('┃',end='')
 	# Loop over each column in the current row
 		for index in range(row, nr_of_colors, righe):
 			# Print elements
@@ -204,12 +205,13 @@ def print_info_list(lista: list, righe: int):
 			hls2 = rgb_2_hls(rgb2)
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ ' + f"{str(rgb1): <15}" + ', ' + f"{str(rgb2): <15} │" ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" + ' │', end='')
+			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ ' + f"{str(rgb1): <15}" + ', ' + f"{str(rgb2): <15} │" ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" + '│', end='')
 			#print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
 	print (f"{colors.reset}",end='')
-	print ('╰' +'─'*99 +'╯')
+	print('')
+	#print ('╰' +'─'*99 +'╯')
 
 def interactive_color_selection():
 	global replace_primary_color
@@ -221,7 +223,7 @@ def interactive_color_selection():
 		x = input(f':: Choose a new accent accent color (1 to {nr_of_colors}): ')
 	reply = confirm_prompt(":: Are you sure to continue?")
 	if reply == False:
-			exit_on_error('[i] exit without do any change!')
+			exit_on_error('[i] exit without apply any change!')
 
 	# set new colors
 	replace_primary_color = (colors_list[int(x) - 1])[0]
@@ -353,11 +355,12 @@ if __name__ == '__main__':
 	hexFname = args.load_colors
 
 	# define global variables
+	HOME_ = os.path.expanduser('~')
 	curr_dir = os.getcwd()
 	iniFname = 'colors.ini'
-	cssFname = os.path.expanduser('~') + "/.config/gtk-4.0/colors.css"
-	shellFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
-	svgFname = os.path.expanduser('~') + "/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
+	cssFname = f"{HOME_}/.config/gtk-4.0/colors.css"
+	shellFname = f"{HOME_}/.local/share/themes/MyAdwaita-Colors/gnome-shell/gnome-shell.css"
+	svgFname = f"{HOME_}/.local/share/themes/MyAdwaita-Colors/gnome-shell/toggle-on.svg"
 	config = configparser.ConfigParser()
 
 
@@ -369,8 +372,8 @@ if __name__ == '__main__':
 		# All colors MUST be different and in lower case!
 		# lighter version of accent color are generated using colors conversion functions
 		accent_colors = ['#bb0f49','#da5a3a','#fcb600','#32b199','#259f2b','#367588',
-						 '#483d8b','#b57edc','#3584e4','#195d54','#3b7a57','#1f9d55',
-						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#1560bd',
+						 '#6d4aff','#b57edc','#3584e4','#195d54','#3b7a57','#1f9d55',
+						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#0061a4',
 						 '#1f75fe','#ff69b4','#ed333b','#4e78d9','#74a4b1','#8b6be3']
 
 	# get nr of colors 
