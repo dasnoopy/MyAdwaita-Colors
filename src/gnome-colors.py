@@ -175,7 +175,7 @@ def print_matrix_with_indices(lista: list, righe: int):
 	print ('')
 	# Loop over each row
 	for row in range(righe):
-		print ('┃',end='')
+		# print ('┃',end='')
 	# Loop over each column in the current row
 		for index in range(row, nr_of_colors, righe):
 			# Print elements
@@ -191,7 +191,7 @@ def print_info_list(lista: list, righe: int):
 	#lista.sort()
 	print (f"{colors.reset}"':: Info about all available accent colors:')
 	# print header
-	#print ('╭' +'─'*99 +'╮')
+	#print ('┎' +'─'*99 +'┒')
 	print('')
 	# Loop over each row
 	for row in range(righe):
@@ -205,13 +205,13 @@ def print_info_list(lista: list, righe: int):
 			hls2 = rgb_2_hls(rgb2)
 			R1, G1, B1 = str(rgb1[0]), str(rgb1[1]), str(rgb1[2])
 			R2, G2, B2 = str(rgb2[0]), str(rgb2[1]), str(rgb2[2])
-			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ ' + f"{str(rgb1): <15}" + ', ' + f"{str(rgb2): <15} │" ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" + '│', end='')
+			print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm ' + (lista[index][0]) + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm ' + (lista[index][1]) + ' \033[0m' + ' │ RGB: ' + f"{str(rgb1): <15}" + ' , ' + f"{str(rgb2): <15} │ HLS: " ,f"{hls1: <17}" + ', ' + f"{hls2: <17}" + '│', end='')
 			#print (f" {colors.reset}{index + 1:03d}: "'\033[48;2;' + R1 + ';' + G1 + ';' + B1 + 'm        ' + ' \033[0m\033[48;2;' + R2 + ';' + G2 + ';' + B2 + 'm        ' + ' \033[0m' + ' │ ' + lista[index][0] + ' │ ' + f"{str(rgb1):<15} │" ,f"{hls1:<18}" + ' │', end='')
 		# Print a new line after each row
 		print('')
 	print (f"{colors.reset}",end='')
 	print('')
-	#print ('╰' +'─'*99 +'╯')
+	#print ('┖' +'─'*99 +'┚')
 
 def interactive_color_selection():
 	global replace_primary_color
@@ -370,11 +370,11 @@ if __name__ == '__main__':
 			accent_colors = ["#" + suit for suit in reader]
 	else:
 		# All colors MUST be different and in lower case!
-		# lighter version of accent color are generated using colors conversion functions
-		accent_colors = ['#bb0f49','#da5a3a','#fcb600','#32b199','#259f2b','#367588',
-						 '#6d4aff','#b57edc','#3584e4','#195d54','#3b7a57','#1f9d55',
-						 '#68778c','#40a02b','#7193ff','#028fc7','#5661b3','#0061a4',
-						 '#1f75fe','#ff69b4','#ed333b','#4e78d9','#74a4b1','#8b6be3']
+		# lighter version of accent color are generated using colors conversion function
+		accent_colors = ['#bb0f49','#da5a3a','#fcb600','#2a9d8f','#259f2b','#367588',
+						 '#6d4aff','#b57edc','#039be5','#195d54','#3b7a57','#1f9d55',
+						 '#6f8396','#40a02b','#7193ff','#028fc7','#5661b3','#0061a4',
+						 '#1f75fe','#d56199','#ed333b','#596097','#74a4b1','#8b6be3']
 
 	# get nr of colors 
 	# for better visualization keep even num of colors (eg. 12, 18, 24, 30, ....)
@@ -389,16 +389,16 @@ if __name__ == '__main__':
 	lum_factor = 0.1
 
 	for i in range (nr_of_colors):
-		# convert each HEX accent color in RGB 
+		# convert each HEX  color in R,G,B 
 		accent_rgb.append (hex_to_rgb (accent_colors[i]))
 
-		# create a RGB lighter color from RGB accent color
+		# create a R,G,B lighter color from RGB accent color
 		lighter_rgb.append (lighten_color (accent_rgb[i][0], accent_rgb[i][1], accent_rgb[i][2], lum_factor))
 
-		# convert lighter RGB to ligher HEX
+		# convert lighter R,G,B to ligher HEX
 		lighter_colors.append (rgb_to_hex (lighter_rgb[i][0], lighter_rgb[i][1], lighter_rgb[i][2]))
 
-	# finally combine the accent colors and their lighter version
+	# finally combine the HEX accent colors and its HEX lighter version
 	colors_list = list(zip(accent_colors, lighter_colors))
 	
 	#call main
