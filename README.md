@@ -24,22 +24,22 @@
 **Some other info:**
  - the script use dbus-send command to reload shell theme "on-the-fly". This can be achivied only if gnome is in unsafe-mode.
    unsafe mode can be enabled/disabled using this extensions: https://github.com/linushdot/unsafe-mode-menu
- - if the extension is not installed or running, after any color change you have to use gnome-tweaks to reload MyAdwaita-Colors theme.
+ - if the extension is not installed or running while the script is running, after any color change you must use gnome-tweaks to reload MyAdwaita-Colors theme.
 
 **How to use it:** 
 1) git clone MyAdwaita-Colors repo:	`# git clone https://github.com/dasnoopy/MyAdwaita-Colors`
 2) create (if not exist) folder `/home/your_account/.local/share/themes` and copy MyAdwaita-Colors folder into it
-3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css` and `/home/your_account/.config/gtk-3.0/gtk.css` , adding at beginning, this line: 
+3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css` and `/home/your_account/.config/gtk-3.0/gtk.css` , adding at beginningof these files following line: 
   - `@import 'colors.css';`
   - it will import some colors definition from file `colors.css` that will be create by the script itself always into `/home/your_account/.config/gtk-4.0/` folder.
-  - make a symbolic : ln -s `/home/your_account/.config/gtk-4.0/color.css /home/your_account/.config/gtk-3.0/color.css` for gtk3 apps
+  - make a symbolic link with: ln -s `/home/your_account/.config/gtk-4.0/color.css /home/your_account/.config/gtk-3.0/color.css` for gtk3 apps
 4) using gnome-tweaks, choose MyAdwaita-Colors as shell and legacy applications theme...
 5) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src` (see below for a description of all script options)
 6) choose a color schema between 24 preset (or load from an external file containing a list of HEX colors using  the -f option )
 7) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
 8) Enjoy new colors!
 
-**scritp options:** 
+**script options:** 
 ```
 usage: gnome-colors.py [-h] [-c] [-i] [-t] [-f LOAD_COLORS]
 

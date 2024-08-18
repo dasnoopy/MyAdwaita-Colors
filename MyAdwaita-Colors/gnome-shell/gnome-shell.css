@@ -2361,7 +2361,7 @@ StScrollBar {
       background-color: #43474c; }
   .app-folder:hover {
     color: whitesmoke;
-    background-color: #444444; }
+    background-color: #1f252a; }
   .app-folder:active {
     color: whitesmoke;
     background-color: #3B4252; }
@@ -3019,7 +3019,7 @@ StScrollBar {
           background-color: #43474c; }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:hover {
         color: whitesmoke;
-        background-color: #444444; }
+        background-color: #1f252a; }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:active {
         color: whitesmoke;
         background-color: #3B4252; }
