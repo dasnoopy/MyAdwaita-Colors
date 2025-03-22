@@ -1,4 +1,4 @@
-# MyAdwaita-Colors
+# MyAdwaita-Colors (ONLY for GNOME46)
 
 - A gnome-shell theme ( **gnome v46 only** ) based on vanilla gnome-shell theme: it use nord theme colors schema for background and, mainly, less rounded borders and less padding.
 - Provide also a python script to set an accent color (from 24 preset or from external palette file with a list of HEX colors) to gnome-shell and gtk3-gtk4 themes 
@@ -29,7 +29,7 @@
 **How to use it:** 
 1) git clone MyAdwaita-Colors repo:	`# git clone https://github.com/dasnoopy/MyAdwaita-Colors`
 2) create (if not exist) folder `/home/your_account/.local/share/themes` and copy MyAdwaita-Colors folder into it
-3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css` and `/home/your_account/.config/gtk-3.0/gtk.css` , adding at beginningof these files following line: 
+3) create or modify the file `/home/your_account/.config/gtk-4.0/gtk.css` and `/home/your_account/.config/gtk-3.0/gtk.css` , adding at beginning of these files following line: 
   - `@import 'colors.css';`
   - it will import some colors definition from file `colors.css` that will be create by the script itself always into `/home/your_account/.config/gtk-4.0/` folder.
   - make a symbolic link with: ln -s `/home/your_account/.config/gtk-4.0/color.css /home/your_account/.config/gtk-3.0/color.css` for gtk3 apps
@@ -37,7 +37,7 @@
 5) run the `gnome_colors.py` script from folder `/home/user/.local/share/themes/MyAdwaita-Colors/src` (see below for a description of all script options)
 6) choose a color schema between 24 preset (or load from an external file containing a list of HEX colors using  the -f option )
 7) (run gnome-tweaks to reload the shell theme if unsafe-mode extension is not installed/running)
-8) Enjoy new colors!
+8) Enjoy the new accent color!
 
 **script options:** 
 ```
